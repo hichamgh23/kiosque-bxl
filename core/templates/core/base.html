@@ -643,6 +643,7 @@
     padding: 1.1rem 2rem;
     display: flex; align-items: center; justify-content: center; gap: 1.2rem;
     animation: closedIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    position: relative; z-index: 150;
 }
 .closed-badge {
     display: flex; align-items: center; justify-content: center;
@@ -672,7 +673,6 @@
     <div class="closed-badge">🔴</div>
     <div class="closed-text">
         <span class="closed-title">{{ site_closed_msg }}</span>
-        {% if site_hours_week %}<span class="closed-sub">🕐 Lun–Sam : {{ site_hours_week }} &nbsp;·&nbsp; Dim : {{ site_hours_sunday }}</span>{% endif %}
     </div>
 </div>
 {% endif %}
