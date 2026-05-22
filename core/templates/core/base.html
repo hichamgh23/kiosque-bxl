@@ -220,6 +220,32 @@
         /* ══════════════════ MAIN ══════════════════ */
         main { flex: 1; }
 
+        /* ══════════════════ PLAQUE FERMÉ ══════════════════ */
+        @keyframes closedIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes redPulse { 0%,100%{box-shadow:0 0 0 0 rgba(248,113,113,0.4)} 50%{box-shadow:0 0 0 8px rgba(248,113,113,0)} }
+        .closed-plate {
+            background: linear-gradient(135deg, #1a0808 0%, #2a0f0f 100%);
+            border-bottom: 2px solid rgba(248,113,113,0.4);
+            padding: 1.1rem 2rem;
+            display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+            animation: closedIn 0.5s ease both;
+        }
+        .closed-badge {
+            width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(248,113,113,0.15); border: 2px solid rgba(248,113,113,0.5);
+            font-size: 1.3rem; animation: redPulse 2s ease infinite;
+        }
+        .closed-title {
+            font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700;
+            color: #fca5a5; display: block; line-height: 1.3;
+        }
+        @media(max-width:600px){
+            .closed-plate { padding:0.9rem 1.2rem; gap:0.8rem; }
+            .closed-badge { width:34px; height:34px; font-size:1rem; }
+            .closed-title { font-size:0.88rem; }
+        }
+
         /* ══════════════════ FOOTER ══════════════════ */
         footer {
             background: var(--navy-mid);
@@ -634,41 +660,6 @@
 </div>
 
 {% if not site_is_open and not user.is_staff %}
-<style>
-@keyframes closedIn  { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
-@keyframes redPulse  { 0%,100%{box-shadow:0 0 0 0 rgba(248,113,113,0.4)} 50%{box-shadow:0 0 0 8px rgba(248,113,113,0)} }
-.closed-plate {
-    background: linear-gradient(135deg, #1a0808 0%, #2a0f0f 100%);
-    border-bottom: 2px solid rgba(248,113,113,0.4);
-    padding: 1.1rem 2rem;
-    display: flex; align-items: center; justify-content: center; gap: 1.2rem;
-    animation: closedIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
-    position: relative; z-index: 150;
-}
-.closed-badge {
-    display: flex; align-items: center; justify-content: center;
-    width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
-    background: rgba(248,113,113,0.15);
-    border: 2px solid rgba(248,113,113,0.5);
-    font-size: 1.3rem;
-    animation: redPulse 2s ease infinite;
-}
-.closed-text { text-align: left; }
-.closed-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1rem; font-weight: 700;
-    color: #fca5a5; display: block; line-height: 1.3;
-}
-.closed-sub {
-    font-size: 0.76rem; color: rgba(252,165,165,0.6);
-    display: block; margin-top: 0.15rem;
-}
-@media(max-width:600px){
-    .closed-plate { padding:0.9rem 1.2rem; gap:0.8rem; }
-    .closed-badge { width:34px; height:34px; font-size:1rem; }
-    .closed-title { font-size:0.88rem; }
-}
-</style>
 <div class="closed-plate">
     <div class="closed-badge">🔴</div>
     <div class="closed-text">
