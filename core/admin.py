@@ -4,7 +4,8 @@ from .models import Category, Product, Order, OrderItem
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display  = ('icon', 'name', 'slug', 'order')
+    list_display  = ('name', 'slug', 'order')
+    exclude       = ('icon',)
     prepopulated_fields = {'slug': ('name',)}
 
 
