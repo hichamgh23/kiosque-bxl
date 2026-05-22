@@ -634,9 +634,30 @@
 </div>
 
 {% if not site_is_open and not user.is_staff %}
-<div style="background:rgba(248,113,113,0.1);border-bottom:1px solid rgba(248,113,113,0.25);padding:0.8rem 1.5rem;text-align:center;font-size:0.88rem;color:var(--danger)">
-    🔴 <strong>{{ site_closed_msg }}</strong>
-    {% if site_opening_hours %} — {{ site_opening_hours }}{% endif %}
+<style>
+@keyframes closedSlide { from{transform:translateY(-100%);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes closedPulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+.closed-banner {
+    background: rgba(248,113,113,0.1);
+    border-bottom: 1px solid rgba(248,113,113,0.25);
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--danger);
+    animation: closedSlide 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+}
+.closed-dot {
+    display: inline-block;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--danger);
+    animation: closedPulse 1.5s ease infinite;
+    flex-shrink: 0;
+}
+</style>
+<div class="closed-banner">
+    <span class="closed-dot"></span>
+    <span><strong>{{ site_closed_msg }}</strong>{% if site_hours_week %} — Lun–Sam : {{ site_hours_week }}{% endif %}</span>
 </div>
 {% endif %}
 <main>{% block content %}{% endblock %}</main>
