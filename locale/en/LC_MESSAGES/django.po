@@ -445,6 +445,9 @@ msgstr "Only necessary cookies — cart, security and language. Zero tracking, z
 msgid "En savoir plus"
 msgstr "Learn more"
 
+msgid "Hors ligne"
+msgstr "Offline"
+
 msgid "J'accepte"
 msgstr "I accept"
 

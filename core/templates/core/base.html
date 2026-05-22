@@ -842,7 +842,11 @@ function acceptCookies(){
             <div class="support-avatar">🛵</div>
             <div class="support-header-text">
                 <div class="support-header-name">Le Kiosque BXL</div>
-                <div class="support-header-sub">● {% trans "En ligne · Répond rapidement" %}</div>
+                {% if site_is_open %}
+                <div class="support-header-sub" style="color:#34d399">● {% trans "En ligne · Répond rapidement" %}</div>
+                {% else %}
+                <div class="support-header-sub" style="color:#f87171">● {% trans "Hors ligne" %}</div>
+                {% endif %}
             </div>
             <button class="support-close-btn" id="support-close">✕</button>
         </div>

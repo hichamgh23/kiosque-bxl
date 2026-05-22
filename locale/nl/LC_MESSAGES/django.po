@@ -447,6 +447,9 @@ msgstr "Alleen noodzakelijke cookies — winkelwagen, beveiliging en taal. Nul t
 msgid "En savoir plus"
 msgstr "Meer info"
 
+msgid "Hors ligne"
+msgstr "Offline"
+
 msgid "J'accepte"
 msgstr "Ik accepteer"
 
