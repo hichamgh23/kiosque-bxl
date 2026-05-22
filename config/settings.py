@@ -58,6 +58,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'core.context_processors.cart_info',
                 'core.context_processors.support_info',
+                'core.context_processors.site_settings',
             ],
         },
     },

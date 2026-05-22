@@ -152,6 +152,24 @@ class OrderMessage(models.Model):
         return f"[{who}] {self.content[:60]}"
 
 
+class SiteSettings(models.Model):
+    is_open       = models.BooleanField(default=True, verbose_name='Kiosque ouvert')
+    opening_hours = models.CharField(max_length=200, default='Lun–Sam : 10h–22h', verbose_name='Horaires')
+    closed_msg    = models.CharField(max_length=300, default='Le kiosque est actuellement fermé. Revenez bientôt !', verbose_name='Message fermeture')
+
+    class Meta:
+        verbose_name        = 'Paramètres du site'
+        verbose_name_plural = 'Paramètres du site'
+
+    def __str__(self):
+        return '⚡ Ouvert' if self.is_open else '🔴 Fermé'
+
+    @classmethod
+    def get(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+
 class OrderItem(models.Model):
     order        = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product      = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, verbose_name=_('Produit'))

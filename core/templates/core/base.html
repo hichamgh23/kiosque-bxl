@@ -646,6 +646,12 @@
     <a href="{% url 'checkout' %}" class="nav-cta mob-cta">{% trans "Commander" %} →</a>
 </div>
 
+{% if not site_is_open and not user.is_staff %}
+<div style="background:rgba(248,113,113,0.1);border-bottom:1px solid rgba(248,113,113,0.25);padding:0.8rem 1.5rem;text-align:center;font-size:0.88rem;color:var(--danger)">
+    🔴 <strong>{{ site_closed_msg }}</strong>
+    {% if site_opening_hours %} — {{ site_opening_hours }}{% endif %}
+</div>
+{% endif %}
 <main>{% block content %}{% endblock %}</main>
 
 <!-- ════════════ FOOTER ════════════ -->

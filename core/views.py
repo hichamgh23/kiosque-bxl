@@ -7,7 +7,7 @@ from django.core.cache import cache
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils.translation import gettext as _
-from .models import Category, Product, Order, OrderItem, OrderMessage, SupportSession, SupportMessage
+from .models import Category, Product, Order, OrderItem, OrderMessage, SupportSession, SupportMessage, SiteSettings
 from .forms import CheckoutForm
 from .utils import send_telegram, generate_tracking_number
 
@@ -156,6 +156,8 @@ def cart_view(request):
 # ── Commande ────────────────────────────────────────────────────────────────
 
 def checkout(request):
+    if not SiteSettings.get().is_open:
+        return redirect('kiosque')
     cart  = _get_cart(request)
     items = _cart_items(cart)
     if not items:
@@ -321,6 +323,15 @@ def set_typing(request, order_id):
 
 
 @admin_required
+@require_POST
+def toggle_open(request):
+    s = SiteSettings.get()
+    s.is_open = not s.is_open
+    s.save()
+    return redirect('admin_dashboard')
+
+
+@admin_required
 def dashboard(request):
     status_filter = request.GET.get('status', '')
     orders = Order.objects.all()
@@ -334,6 +345,7 @@ def dashboard(request):
         'current_filter': status_filter,
         'counts':         counts,
         'pending_count':  counts.get('en_attente', 0),
+        'settings':       SiteSettings.get(),
     })
 
 

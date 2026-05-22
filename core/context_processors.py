@@ -1,10 +1,18 @@
-from .models import SupportSession
+from .models import SupportSession, SiteSettings
 
 
 def cart_info(request):
     cart = request.session.get('cart', {})
     count = sum(v['qty'] for v in cart.values())
     return {'cart_count': count}
+
+
+def site_settings(request):
+    try:
+        s = SiteSettings.get()
+        return {'site_is_open': s.is_open, 'site_opening_hours': s.opening_hours, 'site_closed_msg': s.closed_msg}
+    except Exception:
+        return {'site_is_open': True, 'site_opening_hours': '', 'site_closed_msg': ''}
 
 
 def support_info(request):

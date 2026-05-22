@@ -33,6 +33,7 @@ urlpatterns = [
     path('admin-kiosque/login/', views.admin_login_view, name='admin_login'),
     path('admin-kiosque/logout/', views.admin_logout_view, name='admin_logout'),
     path('admin-kiosque/', views.dashboard, name='admin_dashboard'),
+    path('admin-kiosque/toggle-open/', views.toggle_open, name='toggle_open'),
     path('admin-kiosque/commande/<int:order_id>/', views.order_detail, name='admin_order_detail'),
     path('admin-kiosque/support/', views.admin_support, name='admin_support'),
     path('admin-kiosque/support/<int:session_id>/send/', views.admin_support_send, name='admin_support_send'),
