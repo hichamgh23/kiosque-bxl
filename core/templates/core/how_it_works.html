@@ -152,68 +152,12 @@
 .extra-card h3 { font-family:'Fraunces',serif; font-size:1.1rem; color:var(--white); margin-bottom:0.7rem; }
 .extra-card p { font-size:0.87rem; color:var(--text-muted); line-height:1.7; margin-bottom:1rem; }
 
-/* ── Bus line ── */
-.busline { margin-top:0.8rem; }
-.bl-track {
-    position: relative;
-    height: 6px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 99px;
-    margin: 0 0 1.2rem;
-}
-.bl-progress {
-    position: absolute; left:0; top:0; height:100%;
-    background: linear-gradient(90deg, var(--gold), #34d399);
-    border-radius: 99px;
-    width: 0%;
-    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
-}
-.bl-bus {
-    position: absolute; top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.2rem;
-    left: 0%;
-    transition: left 0.8s cubic-bezier(0.4,0,0.2,1);
-    filter: drop-shadow(0 0 6px rgba(245,166,35,0.8));
-}
-.bl-stops {
-    display: flex; justify-content: space-between;
-    position: relative;
-}
-.bl-stop {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 0.4rem; flex: 1;
-}
-.bl-dot {
-    width: 34px; height: 34px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
-    background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(255,255,255,0.1);
-    transition: all 0.4s;
-}
-.bl-stop.done .bl-dot {
-    background: rgba(52,211,153,0.15);
-    border-color: #34d399;
-}
-.bl-stop.active .bl-dot {
-    background: rgba(245,166,35,0.15);
-    border-color: var(--gold);
-    box-shadow: 0 0 12px rgba(245,166,35,0.4);
-    transform: scale(1.15);
-}
-.bl-label {
-    font-size: 0.6rem; color: var(--text-muted);
-    text-align: center; line-height: 1.3;
-    transition: color 0.4s;
-}
-.bl-stop.active .bl-label { color: var(--gold); font-weight: 700; }
-.bl-stop.done  .bl-label  { color: #34d399; }
-.bl-status {
-    text-align: center; margin-top: 0.9rem;
-    font-size: 0.82rem; font-weight: 700; color: var(--gold);
-    min-height: 1.2rem;
-}
+/* Suivi steps */
+.track-steps { display:flex; align-items:center; flex-wrap:wrap; gap:0.4rem; margin-top:0.5rem; }
+.ts { display:flex; flex-direction:column; align-items:center; gap:0.3rem; }
+.ts-dot { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem; border:1px solid rgba(255,255,255,0.1); }
+.ts span:last-child { font-size:0.65rem; color:var(--text-muted); white-space:nowrap; }
+.ts-arrow { color:rgba(255,255,255,0.2); font-size:0.9rem; }
 
 /* Contact ways */
 .contact-ways { display:flex; flex-direction:column; gap:0.8rem; }
@@ -321,38 +265,17 @@
             <div class="extra-icon">📦</div>
             <h3>{% trans "Suivez votre commande en direct" %}</h3>
             <p>{% trans "Dès que vous commandez, vous recevez un numéro de suivi à 6 chiffres. Entrez-le sur la page de suivi pour voir en temps réel où en est votre livraison :" %}</p>
-
-            <!-- Bus line display -->
-            <div class="busline" id="busline">
-                <div class="bl-track">
-                    <div class="bl-progress" id="bl-progress"></div>
-                    <div class="bl-bus" id="bl-bus">🛵</div>
-                </div>
-                <div class="bl-stops">
-                    <div class="bl-stop active" data-step="0">
-                        <div class="bl-dot"><span>⏳</span></div>
-                        <div class="bl-label">{% trans "Commande reçue" %}</div>
-                    </div>
-                    <div class="bl-stop" data-step="1">
-                        <div class="bl-dot"><span>✅</span></div>
-                        <div class="bl-label">{% trans "Confirmée" %}</div>
-                    </div>
-                    <div class="bl-stop" data-step="2">
-                        <div class="bl-dot"><span>🛵</span></div>
-                        <div class="bl-label">{% trans "En livraison" %}</div>
-                    </div>
-                    <div class="bl-stop" data-step="3">
-                        <div class="bl-dot"><span>🔔</span></div>
-                        <div class="bl-label">{% trans "Devant chez vous" %}</div>
-                    </div>
-                    <div class="bl-stop" data-step="4">
-                        <div class="bl-dot"><span>🏠</span></div>
-                        <div class="bl-label">{% trans "Livrée" %}</div>
-                    </div>
-                </div>
-                <div class="bl-status" id="bl-status">{% trans "Commande reçue" %}</div>
+            <div class="track-steps">
+                <div class="ts"><span class="ts-dot" style="background:rgba(245,166,35,0.3);color:var(--gold)">⏳</span><span>{% trans "Commande reçue" %}</span></div>
+                <div class="ts-arrow">→</div>
+                <div class="ts"><span class="ts-dot" style="background:rgba(96,165,250,0.2);color:#60a5fa">✅</span><span>{% trans "Confirmée" %}</span></div>
+                <div class="ts-arrow">→</div>
+                <div class="ts"><span class="ts-dot" style="background:rgba(167,139,250,0.2);color:#a78bfa">🛵</span><span>{% trans "En livraison" %}</span></div>
+                <div class="ts-arrow">→</div>
+                <div class="ts"><span class="ts-dot" style="background:rgba(52,211,153,0.15);color:#34d399">🔔</span><span>{% trans "Devant chez vous" %}</span></div>
+                <div class="ts-arrow">→</div>
+                <div class="ts"><span class="ts-dot" style="background:rgba(52,211,153,0.2);color:var(--success)">🏠</span><span>{% trans "Livrée" %}</span></div>
             </div>
-
             <a href="{% url 'track_search' %}" class="btn btn-ghost" style="margin-top:1.2rem;width:100%;justify-content:center">📦 {% trans "Suivre ma commande" %} →</a>
         </div>
 
@@ -389,37 +312,4 @@
     </div>
 
 </div>
-
-<script>
-(function(){
-    var stops = document.querySelectorAll('.bl-stop');
-    var progress = document.getElementById('bl-progress');
-    var bus = document.getElementById('bl-bus');
-    var statusTxt = document.getElementById('bl-status');
-    if(!stops.length) return;
-
-    var labels = Array.from(stops).map(function(s){ return s.querySelector('.bl-label').textContent.trim(); });
-    var pcts   = [0, 25, 50, 75, 100];
-    var current = 0;
-
-    function goTo(step){
-        stops.forEach(function(s, i){
-            s.classList.remove('active','done');
-            if(i < step)  s.classList.add('done');
-            if(i === step) s.classList.add('active');
-        });
-        progress.style.width = pcts[step] + '%';
-        bus.style.left       = pcts[step] + '%';
-        statusTxt.textContent = labels[step];
-    }
-
-    goTo(0);
-
-    /* Avance automatiquement toutes les 1.8s, repart au début */
-    setInterval(function(){
-        current = (current + 1) % stops.length;
-        goTo(current);
-    }, 1800);
-})();
-</script>
 {% endblock %}
