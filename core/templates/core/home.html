@@ -362,6 +362,16 @@ if (document.documentElement.classList.contains('show-loader')) {
         {# Trust bar #}
         <div class="hero-trust">
             <div class="trust-item">
+                {% if site_is_open %}
+                <span class="t-ico">🟢</span>
+                <strong style="color:#34d399">Ouvert</strong>
+                {% else %}
+                <span class="t-ico">🔴</span>
+                <strong style="color:#f87171">Fermé</strong>
+                {% endif %}
+                {{ site_opening_hours }}
+            </div>
+            <div class="trust-item">
                 <span class="t-ico">🛵</span>
                 <strong>4.99€</strong>
                 {% trans "Livraison" %}
@@ -370,11 +380,6 @@ if (document.documentElement.classList.contains('show-loader')) {
                 <span class="t-ico">💵</span>
                 <strong>{% trans "À la livraison" %}</strong>
                 {% trans "Paiement" %}
-            </div>
-            <div class="trust-item">
-                <span class="t-ico">⚡</span>
-                <strong>{% trans "Rapide" %}</strong>
-                {% trans "Livraison" %}
             </div>
         </div>
 
