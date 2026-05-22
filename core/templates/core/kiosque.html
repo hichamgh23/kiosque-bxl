@@ -176,11 +176,11 @@
     <div class="cat-tabs-wrap-inner">
         <div class="cat-tabs" id="cat-tabs">
             <button class="tab-btn active" data-target="cat-tous">
-                <span class="tab-ico">🛍️</span> {% trans "Tous les produits" %}
+                {% trans "Tous les produits" %}
             </button>
             {% for cat in categories %}
             <button class="tab-btn" data-target="cat-{{ cat.slug }}">
-                <span class="tab-ico">{{ cat.icon }}</span> {% trans cat.name %}
+                {% trans cat.name %}
             </button>
             {% endfor %}
         </div>
@@ -193,7 +193,7 @@
     <!-- Onglet Tous -->
     <div class="cat-section visible" id="cat-tous">
         {% for cat in categories %}
-        <div class="cat-title">{{ cat.icon }} {% trans cat.name %}</div>
+        <div class="cat-title">{% trans cat.name %}</div>
         <div class="products-grid" style="margin-bottom:2rem">
             {% for product in cat.products.all %}
             <div class="product-card">
@@ -235,7 +235,7 @@
     <!-- Onglets par catégorie -->
     {% for cat in categories %}
     <div class="cat-section" id="cat-{{ cat.slug }}">
-        <div class="cat-title">{{ cat.icon }} {% trans cat.name %}</div>
+        <div class="cat-title">{% trans cat.name %}</div>
         <div class="products-grid">
             {% for product in cat.products.all %}
             <div class="product-card">
