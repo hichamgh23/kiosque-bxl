@@ -10,9 +10,14 @@ def cart_info(request):
 def site_settings(request):
     try:
         s = SiteSettings.get()
-        return {'site_is_open': s.is_open, 'site_opening_hours': s.opening_hours, 'site_closed_msg': s.closed_msg}
+        return {
+            'site_is_open':      s.is_open,
+            'site_hours_week':   s.hours_week,
+            'site_hours_sunday': s.hours_sunday,
+            'site_closed_msg':   s.closed_msg,
+        }
     except Exception:
-        return {'site_is_open': True, 'site_opening_hours': '', 'site_closed_msg': ''}
+        return {'site_is_open': True, 'site_hours_week': '', 'site_hours_sunday': '', 'site_closed_msg': ''}
 
 
 def support_info(request):

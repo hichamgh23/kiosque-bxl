@@ -197,6 +197,41 @@ if (document.documentElement.classList.contains('show-loader')) {
 .hero-btn-main:hover .hero-btn-icon { transform:translateX(5px); }
 .hero-btn-sec { padding:1.05rem 1.8rem; font-size:1rem; }
 
+/* ── Horaires card ── */
+.hours-card {
+    background: rgba(13,27,42,0.7);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 1.2rem 1.6rem;
+    backdrop-filter: blur(12px);
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    min-width: 280px;
+    max-width: 360px;
+}
+.hours-status {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-weight: 700; font-size: 0.88rem;
+}
+.hours-status.open  { color: #34d399; }
+.hours-status.closed { color: #f87171; }
+.hours-dot {
+    width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+}
+.hours-status.open  .hours-dot { background: #34d399; box-shadow: 0 0 8px rgba(52,211,153,0.6); animation: pulse 2s ease infinite; }
+.hours-status.closed .hours-dot { background: #f87171; }
+.hours-grid { display: flex; flex-direction: column; gap: 0.45rem; }
+.hours-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.hours-day { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+.hours-time { font-size: 0.88rem; color: var(--white); font-weight: 700; }
+.hours-info {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.75rem; color: var(--text-muted);
+}
+
 .hero-trust {
     display:flex; align-items:stretch; justify-content:center; flex-wrap:nowrap;
     border:1px solid rgba(255,255,255,0.09); border-radius:14px; overflow:hidden;
@@ -359,27 +394,26 @@ if (document.documentElement.classList.contains('show-loader')) {
             </a>
         </div>
 
-        {# Trust bar #}
-        <div class="hero-trust">
-            <div class="trust-item">
-                {% if site_is_open %}
-                <span class="t-ico">🟢</span>
-                <strong style="color:#34d399">Ouvert</strong>
-                {% else %}
-                <span class="t-ico">🔴</span>
-                <strong style="color:#f87171">Fermé</strong>
-                {% endif %}
-                {{ site_opening_hours }}
+        {# Statut + Horaires #}
+        <div class="hours-card">
+            <div class="hours-status {% if site_is_open %}open{% else %}closed{% endif %}">
+                <span class="hours-dot"></span>
+                {% if site_is_open %}Ouvert maintenant{% else %}Fermé{% endif %}
             </div>
-            <div class="trust-item">
-                <span class="t-ico">🛵</span>
-                <strong>4.99€</strong>
-                {% trans "Livraison" %}
+            <div class="hours-grid">
+                <div class="hours-row">
+                    <span class="hours-day">Lun – Sam</span>
+                    <span class="hours-time">{{ site_hours_week }}</span>
+                </div>
+                <div class="hours-row">
+                    <span class="hours-day">Dimanche</span>
+                    <span class="hours-time">{{ site_hours_sunday }}</span>
+                </div>
             </div>
-            <div class="trust-item">
-                <span class="t-ico">💵</span>
-                <strong>{% trans "À la livraison" %}</strong>
-                {% trans "Paiement" %}
+            <div class="hours-info">
+                <span>🛵 4.99€</span>
+                <span>💵 À la livraison</span>
+                <span>📍 Ixelles & Etterbeek</span>
             </div>
         </div>
 

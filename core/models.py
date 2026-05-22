@@ -153,9 +153,10 @@ class OrderMessage(models.Model):
 
 
 class SiteSettings(models.Model):
-    is_open       = models.BooleanField(default=True, verbose_name='Kiosque ouvert')
-    opening_hours = models.CharField(max_length=200, default='Lun–Sam : 10h–22h', verbose_name='Horaires')
-    closed_msg    = models.CharField(max_length=300, default='Le kiosque est actuellement fermé. Revenez bientôt !', verbose_name='Message fermeture')
+    is_open        = models.BooleanField(default=True, verbose_name='Kiosque ouvert')
+    hours_week     = models.CharField(max_length=100, default='18h – 3h', verbose_name='Horaires Lun–Sam')
+    hours_sunday   = models.CharField(max_length=100, default='9h – 14h  &  18h – 3h', verbose_name='Horaires Dimanche')
+    closed_msg     = models.CharField(max_length=300, default='Le kiosque est actuellement fermé. Revenez bientôt !', verbose_name='Message fermeture')
 
     class Meta:
         verbose_name        = 'Paramètres du site'
