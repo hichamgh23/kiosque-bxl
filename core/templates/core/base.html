@@ -562,13 +562,6 @@
         <a href="{% url 'kiosque' %}"       class="nav-link"><span class="mob-ico">🛍️</span>{% trans "Boutique" %}</a>
         <a href="{% url 'how_it_works' %}"  class="nav-link"><span class="mob-ico">❓</span>{% trans "Comment ça marche" %}</a>
         <a href="{% url 'about' %}"         class="nav-link"><span class="mob-ico">ℹ️</span>{% trans "À propos" %}</a>
-        {% if user.is_staff %}
-        <a href="{% url 'dashboard' %}"     class="nav-link"><span class="mob-ico">📊</span>Dashboard</a>
-        <a href="{% url 'admin_support' %}" class="nav-link">
-            <span class="mob-ico">💬</span>Support
-            {% if support_unread %}<span style="background:var(--danger);color:#fff;font-size:0.6rem;font-weight:800;padding:1px 6px;border-radius:99px;margin-left:4px;">{{ support_unread }}</span>{% endif %}
-        </a>
-        {% endif %}
 
         {# Mobile : langue + CTA #}
         <form method="post" action="{% url 'set_language' %}" class="lang-mobile-row">
@@ -637,12 +630,6 @@
     <a href="{% url 'track_search' %}"  class="mob-link"><span class="mob-ico">📦</span>{% trans "Suivi commande" %}</a>
     <a href="{% url 'how_it_works' %}"  class="mob-link"><span class="mob-ico">❓</span>{% trans "Comment ça marche" %}</a>
     <a href="{% url 'about' %}"         class="mob-link"><span class="mob-ico">ℹ️</span>{% trans "À propos" %}</a>
-    {% if user.is_staff %}
-    <a href="{% url 'dashboard' %}"     class="mob-link"><span class="mob-ico">📊</span>Dashboard</a>
-    <a href="{% url 'admin_support' %}" class="mob-link">
-        <span class="mob-ico">💬</span>Support{% if support_unread %} <span style="background:var(--danger);color:#fff;font-size:0.6rem;font-weight:800;padding:1px 6px;border-radius:99px;margin-left:2px">{{ support_unread }}</span>{% endif %}
-    </a>
-    {% endif %}
     <a href="{% url 'checkout' %}" class="nav-cta mob-cta">{% trans "Commander" %} →</a>
 </div>
 
