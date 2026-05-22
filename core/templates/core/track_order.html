@@ -181,8 +181,30 @@
         </div>
     </div>
 
+    <!-- Livrée -->
+    {% if order.status == 'livree' %}
+    <div style="text-align:center;padding:2rem 0 1rem">
+        <div style="font-size:4rem;margin-bottom:1rem;animation:popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both">🎉</div>
+        <h2 style="font-family:'Fraunces',serif;font-size:1.6rem;color:var(--white);margin-bottom:0.5rem">
+            {% trans "Merci" %} {{ order.client_name }} !
+        </h2>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem">
+            {% trans "Votre commande a bien été livrée. Bonne dégustation !" %} 🛵
+        </p>
+        <div style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:var(--radius);padding:1.2rem;margin-bottom:1.5rem">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.4rem">Total payé</div>
+            <div style="font-family:'Fraunces',serif;font-size:1.6rem;color:var(--success);font-weight:700">{{ order.total|floatformat:2 }}€ + 4.99€</div>
+        </div>
+        <a href="{% url 'kiosque' %}" class="btn btn-gold" style="width:100%;justify-content:center">
+            {% trans "Commander à nouveau" %} →
+        </a>
+    </div>
+    <style>
+    @keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+    </style>
+
     <!-- Annulée -->
-    {% if is_cancelled %}
+    {% elif is_cancelled %}
     <div class="cancelled-box">
         <div style="font-size:2.2rem">❌</div>
         <h2>{% trans "Commande annulée" %}</h2>

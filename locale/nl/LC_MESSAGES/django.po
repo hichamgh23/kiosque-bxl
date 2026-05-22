@@ -459,6 +459,12 @@ msgstr "Zodra u bestelt, ontvangt u een 6-cijferig trackingnummer. Voer het in o
 msgid "Commande reçue"
 msgstr "Bestelling ontvangen"
 
+msgid "Votre commande a bien été livrée. Bonne dégustation !"
+msgstr "Uw bestelling is geleverd. Smakelijk!"
+
+msgid "Commander à nouveau"
+msgstr "Opnieuw bestellen"
+
 msgid "Contactez-moi directement"
 msgstr "Contacteer mij direct"
 

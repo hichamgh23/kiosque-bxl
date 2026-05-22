@@ -457,6 +457,12 @@ msgstr "As soon as you order, you receive a 6-digit tracking number. Enter it on
 msgid "Commande reçue"
 msgstr "Order received"
 
+msgid "Votre commande a bien été livrée. Bonne dégustation !"
+msgstr "Your order has been delivered. Enjoy!"
+
+msgid "Commander à nouveau"
+msgstr "Order again"
+
 msgid "Contactez-moi directement"
 msgstr "Contact me directly"
 
