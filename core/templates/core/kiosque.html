@@ -218,10 +218,10 @@
                     {% endif %}
                     <div class="product-footer">
                         <span class="product-price">{{ product.price|floatformat:2 }}€</span>
-                        {% if product.in_stock and site_is_open %}
+                        {% if product.in_stock %}
                         <button class="add-btn" data-url="{% url 'add_to_cart' product.id %}" title="{% trans 'Ajouter' %}">+</button>
                         {% else %}
-                        <button class="add-btn" disabled>{% if not site_is_open %}🔴{% else %}✕{% endif %}</button>
+                        <button class="add-btn" disabled>✕</button>
                         {% endif %}
                     </div>
                 </div>
@@ -261,10 +261,10 @@
                     {% endif %}
                     <div class="product-footer">
                         <span class="product-price">{{ product.price|floatformat:2 }}€</span>
-                        {% if product.in_stock and site_is_open %}
+                        {% if product.in_stock %}
                         <button class="add-btn" data-url="{% url 'add_to_cart' product.id %}" title="{% trans 'Ajouter' %}">+</button>
                         {% else %}
-                        <button class="add-btn" disabled>{% if not site_is_open %}🔴{% else %}✕{% endif %}</button>
+                        <button class="add-btn" disabled>✕</button>
                         {% endif %}
                     </div>
                 </div>
