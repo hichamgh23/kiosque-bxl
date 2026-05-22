@@ -1,0 +1,246 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}Comment ça marche — Le Kiosque BXL{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ══ PAGE ══ */
+.hiw { max-width: 1000px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+
+/* ══ HERO ══ */
+.hiw-hero { text-align: center; margin-bottom: 4.5rem; }
+.hiw-tag {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.22);
+    border-radius: 999px; padding: 0.35rem 1rem;
+    font-size: 0.72rem; font-weight: 700; color: var(--gold);
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1.2rem;
+}
+.hiw-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--white); line-height: 1.12; margin-bottom: 0.9rem;
+}
+.hiw-hero p { color: var(--text-muted); font-size: 0.97rem; max-width: 400px; margin: 0 auto; line-height: 1.65; }
+
+/* ══ SCHÉMA ══ */
+.schema {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr 60px 1fr;
+    align-items: start;
+    gap: 0;
+    margin-bottom: 5rem;
+    position: relative;
+}
+
+/* Connecteur flèche */
+.schema-arrow {
+    display: flex; align-items: flex-start;
+    justify-content: center;
+    padding-top: 2.4rem;
+    color: rgba(245,166,35,0.35);
+}
+.schema-arrow svg { flex-shrink: 0; }
+
+/* Carte d'étape */
+.step-card {
+    background: var(--navy-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    transition: border-color 0.25s, transform 0.25s;
+    cursor: default;
+}
+.step-card:hover {
+    border-color: rgba(245,166,35,0.3);
+    transform: translateY(-4px);
+}
+.step-card:hover .step-icon-wrap { box-shadow: 0 0 32px rgba(245,166,35,0.25); }
+
+/* Numéro */
+.step-num {
+    position: absolute; top: -12px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold); color: var(--navy);
+    font-size: 0.65rem; font-weight: 800;
+    padding: 0.18rem 0.65rem; border-radius: 99px;
+    letter-spacing: 0.5px;
+}
+
+/* Icône */
+.step-icon-wrap {
+    width: 70px; height: 70px; border-radius: 50%;
+    background: rgba(245,166,35,0.09);
+    border: 1.5px solid rgba(245,166,35,0.22);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.9rem; margin: 0 auto 1.2rem;
+    transition: box-shadow 0.25s;
+}
+
+.step-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem; color: var(--white);
+    margin-bottom: 0.6rem;
+}
+.step-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.6; }
+
+/* Tags sous la carte */
+.step-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    justify-content: center; margin-top: 1rem;
+}
+.step-tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 99px; padding: 0.2rem 0.65rem;
+    font-size: 0.72rem; color: var(--text-body);
+}
+
+/* Ligne de progression desktop */
+.schema-progress {
+    position: absolute;
+    top: 53px; left: calc(33.33% - 10px); right: calc(33.33% - 10px);
+    height: 2px;
+    background: linear-gradient(90deg,
+        rgba(245,166,35,0.5),
+        rgba(245,166,35,0.2) 50%,
+        rgba(245,166,35,0.5));
+    z-index: 0;
+    display: none; /* affiché via JS quand tout est chargé */
+}
+
+/* ══ FAQ ══ */
+.faq { margin-bottom: 3.5rem; }
+.faq-title {
+    font-family: 'Fraunces', serif; font-size: 1.7rem;
+    color: var(--white); text-align: center; margin-bottom: 2rem;
+}
+.faq-item {
+    background: var(--navy-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; margin-bottom: 0.65rem;
+    overflow: hidden; transition: border-color 0.2s;
+}
+.faq-item[open] { border-color: rgba(245,166,35,0.2); }
+.faq-q {
+    padding: 1.1rem 1.3rem; font-weight: 600; color: var(--white);
+    cursor: pointer; display: flex; justify-content: space-between;
+    align-items: center; font-size: 0.92rem; list-style: none;
+    user-select: none; gap: 1rem;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-chevron { color: var(--gold); font-size: 0.8rem; transition: transform 0.2s; flex-shrink: 0; }
+.faq-item[open] .faq-chevron { transform: rotate(180deg); }
+.faq-a { padding: 0 1.3rem 1.1rem; color: var(--text-muted); font-size: 0.87rem; line-height: 1.7; }
+
+/* ══ CTA ══ */
+.hiw-cta {
+    background: linear-gradient(135deg, var(--navy-mid) 0%, rgba(23,66,114,0.6) 100%);
+    border: 1px solid rgba(245,166,35,0.18);
+    border-radius: 20px; padding: 3rem 2rem;
+    text-align: center;
+}
+.hiw-cta h3 { font-family: 'Fraunces', serif; font-size: 1.6rem; color: var(--white); margin-bottom: 0.6rem; }
+.hiw-cta p { color: var(--text-muted); margin-bottom: 1.8rem; font-size: 0.9rem; }
+
+/* ══ MOBILE ══ */
+@media (max-width: 700px) {
+    .hiw { padding: 2.5rem 1.1rem 4rem; }
+    .hiw-hero { margin-bottom: 2.8rem; }
+
+    /* Vertical sur mobile */
+    .schema {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    .schema-arrow {
+        padding: 0; justify-content: flex-start;
+        padding-left: 28px; height: 40px; align-items: center;
+    }
+    .schema-arrow svg { transform: rotate(90deg); }
+
+    .step-card { text-align: left; padding: 1.5rem; }
+    .step-icon-wrap { width: 54px; height: 54px; font-size: 1.5rem; margin: 0 0 0.9rem; }
+    .step-num { left: 1.5rem; transform: none; top: -10px; }
+    .step-tags { justify-content: flex-start; }
+    .hiw-cta { padding: 2rem 1.2rem; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hiw">
+
+    <!-- Hero -->
+    <div class="hiw-hero">
+
+        <h1>{% trans "Commander, c'est simple." %}</h1>
+        <p>{% trans "Trois étapes, pas de compte à créer, livraison directement chez vous." %}</p>
+    </div>
+
+    <!-- Schéma 3 étapes -->
+    <div class="schema">
+
+        <div class="step-card">
+            <span class="step-num">{% trans "ÉTAPE 1" %}</span>
+            <div class="step-icon-wrap">🛍️</div>
+            <h3>{% trans "Choisissez vos produits" %}</h3>
+            <p>{% trans "Parcourez le kiosque par catégorie et ajoutez ce que vous voulez au panier en un clic." %}</p>
+            <div class="step-tags">
+                <span class="step-tag">🥨 {% trans "Snacks" %}</span>
+                <span class="step-tag">🍫 {% trans "Sucrés" %}</span>
+                <span class="step-tag">🥤 {% trans "Boissons" %}</span>
+                <span class="step-tag">🧴 {% trans "Hygiène" %}</span>
+            </div>
+        </div>
+
+        <div class="schema-arrow">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+            </svg>
+        </div>
+
+        <div class="step-card">
+            <span class="step-num">{% trans "ÉTAPE 2" %}</span>
+            <div class="step-icon-wrap">📋</div>
+            <h3>{% trans "Validez la commande" %}</h3>
+            <p>{% trans "Entrez votre prénom, téléphone et adresse. Choisissez cash ou virement. C'est tout — en 30 secondes." %}</p>
+            <div class="step-tags">
+                <span class="step-tag">💵 {% trans "Cash" %}</span>
+                <span class="step-tag">🏦 {% trans "Virement" %}</span>
+                <span class="step-tag">⚡ {% trans "30 secondes" %}</span>
+            </div>
+        </div>
+
+        <div class="schema-arrow">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+            </svg>
+        </div>
+
+        <div class="step-card">
+            <span class="step-num">{% trans "ÉTAPE 3" %}</span>
+            <div class="step-icon-wrap">🛵</div>
+            <h3>{% trans "Je vous livre" %}</h3>
+            <p>{% trans "Je prépare et livre directement chez vous à Ixelles ou Etterbeek. Frais fixes :" %} <strong style="color:var(--gold)">4.99€</strong>.</p>
+            <div class="step-tags">
+                <span class="step-tag">📍 Ixelles & Etterbeek</span>
+                <span class="step-tag">🛵 4.99€</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="hiw-cta">
+        <h3>{% trans "Prêt à essayer ?" %}</h3>
+        <p>{% trans "Quelques clics suffisent. Votre première commande est rapide et simple." %}</p>
+        <a href="{% url 'kiosque' %}" class="btn btn-gold">{% trans "Commander maintenant" %} →</a>
+    </div>
+
+</div>
+{% endblock %}

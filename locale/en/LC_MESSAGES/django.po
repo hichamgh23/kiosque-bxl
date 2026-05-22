@@ -1,0 +1,479 @@
+# English translations — Le Kiosque BXL
+msgid ""
+msgstr ""
+"Language: en\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Accueil"
+msgstr "Home"
+
+msgid "Boutique"
+msgstr "Shop"
+
+msgid "Commander"
+msgstr "Order"
+
+msgid "Commander maintenant"
+msgstr "Order now"
+
+msgid "Confirmer la commande"
+msgstr "Confirm order"
+
+msgid "Passer la commande"
+msgstr "Place order"
+
+msgid "Ouvrir le kiosque"
+msgstr "Open the shop"
+
+msgid "Comment ça marche"
+msgstr "How it works"
+
+msgid "À propos"
+msgstr "About"
+
+msgid "Suivi commande"
+msgstr "Track order"
+
+msgid "Suivre ma commande"
+msgstr "Track my order"
+
+msgid "Nous contacter"
+msgstr "Contact us"
+
+msgid "Mon panier"
+msgstr "My cart"
+
+msgid "Votre panier est vide."
+msgstr "Your cart is empty."
+
+msgid "Récapitulatif"
+msgstr "Summary"
+
+msgid "Votre commande"
+msgstr "Your order"
+
+msgid "Nos meilleures ventes"
+msgstr "Best sellers"
+
+msgid "Populaires"
+msgstr "Popular"
+
+msgid "Voir tous les produits"
+msgstr "View all products"
+
+msgid "Voir les produits"
+msgstr "View products"
+
+msgid "Voir"
+msgstr "View"
+
+msgid "Tous les produits"
+msgstr "All products"
+
+msgid "Aucun produit pour l'instant."
+msgstr "No products yet."
+
+msgid "Rupture"
+msgstr "Out of stock"
+
+msgid "Articles commandés"
+msgstr "Ordered items"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Paiement"
+msgstr "Payment"
+
+msgid "Client"
+msgstr "Customer"
+
+msgid "Téléphone"
+msgstr "Phone"
+
+msgid "Adresse de livraison"
+msgstr "Delivery address"
+
+msgid "Statut"
+msgstr "Status"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Commande"
+msgstr "Order"
+
+msgid "Produit"
+msgstr "Product"
+
+msgid "Enregistrer"
+msgstr "Save"
+
+msgid "Retour"
+msgstr "Back"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Infos"
+msgstr "Info"
+
+msgid "En attente"
+msgstr "Pending"
+
+msgid "En livraison"
+msgstr "Out for delivery"
+
+msgid "Livrées"
+msgstr "Delivered"
+
+msgid "Toutes"
+msgstr "All"
+
+msgid "Aucune commande."
+msgstr "No orders."
+
+msgid "Tous droits réservés"
+msgstr "All rights reserved"
+
+msgid "Bruxelles, Belgique"
+msgstr "Brussels, Belgium"
+
+msgid "Livraison 4.99€ · Paiement à la livraison · Ixelles & Etterbeek"
+msgstr "Delivery 4.99€ · Payment on delivery · Ixelles & Etterbeek"
+
+msgid "Prêt à commander ?"
+msgstr "Ready to order?"
+
+msgid "de frais de livraison"
+msgstr "delivery fee"
+
+msgid "Paiement à la livraison"
+msgstr "Payment on delivery"
+
+msgid "Cash ou virement"
+msgstr "Cash or transfer"
+
+msgid "Livraison rapide"
+msgstr "Fast delivery"
+
+msgid "article"
+msgstr "item"
+
+msgid "Français"
+msgstr "Français"
+
+msgid "English"
+msgstr "English"
+
+msgid "Nederlands"
+msgstr "Nederlands"
+
+msgid ""
+"Snacks, boissons et hygiène livrés rapidement à votre porte. Service "
+"disponible à Ixelles et Etterbeek."
+msgstr ""
+"Snacks, drinks and hygiene products delivered quickly to your door. Service "
+"available in Ixelles and Etterbeek."
+
+msgid "En ligne · Répond rapidement"
+msgstr "Online · Responds quickly"
+
+msgid ""
+"Bonjour ! 👋 Comment puis-je vous aider ? N'hésitez pas à me poser une "
+"question ou à passer commande."
+msgstr ""
+"Hello! 👋 How can I help you? Feel free to ask a question or place an order."
+
+msgid "Prénom :"
+msgstr "First name:"
+
+msgid "Votre prénom…"
+msgstr "Your first name…"
+
+msgid "Votre message…"
+msgstr "Your message…"
+
+msgid "Commandez en ligne,"
+msgstr "Order online,"
+
+msgid "recevez à votre porte."
+msgstr "receive it at your door."
+
+msgid "Livraison rapide à Ixelles & Etterbeek."
+msgstr "Fast delivery to Ixelles & Etterbeek."
+
+msgid "Payez à la livraison, aucun compte requis."
+msgstr "Pay on delivery, no account required."
+
+msgid "Comment ça marche ?"
+msgstr "How does it work?"
+
+msgid "Livraison"
+msgstr "Delivery"
+
+msgid "À la livraison"
+msgstr "On delivery"
+
+msgid "Rapide"
+msgstr "Fast"
+
+msgid "Ajouter"
+msgstr "Add"
+
+msgid "unité"
+msgstr "unit"
+
+msgid "Retirer"
+msgstr "Remove"
+
+msgid "Sous-total"
+msgstr "Subtotal"
+
+msgid "Coordonnées"
+msgstr "Contact details"
+
+msgid "Mode de paiement"
+msgstr "Payment method"
+
+msgid "Cash"
+msgstr "Cash"
+
+msgid "Carte"
+msgstr "Card"
+
+msgid "Merci"
+msgstr "Thank you"
+
+msgid "Votre commande a bien été enregistrée."
+msgstr "Your order has been successfully placed."
+
+msgid "Je vous contacte rapidement pour confirmer la livraison."
+msgstr "I will contact you shortly to confirm the delivery."
+
+msgid "Numéro de suivi"
+msgstr "Tracking number"
+
+msgid "Gardez ce numéro pour suivre votre commande."
+msgstr "Keep this number to track your order."
+
+msgid "Total payé"
+msgstr "Total paid"
+
+msgid "Suivi de commande"
+msgstr "Order tracking"
+
+msgid "Bonjour"
+msgstr "Hello"
+
+msgid "N° de suivi"
+msgstr "Tracking no."
+
+msgid "Commande annulée"
+msgstr "Order cancelled"
+
+msgid ""
+"Cette commande a été annulée. Écrivez-moi si vous pensez qu'il s'agit d'une "
+"erreur."
+msgstr ""
+"This order has been cancelled. Write to me if you think this is an error."
+
+msgid "Terminée"
+msgstr "Completed"
+
+msgid "En cours"
+msgstr "In progress"
+
+msgid "À venir"
+msgstr "Upcoming"
+
+msgid "Statut actuel"
+msgstr "Current status"
+
+msgid "Question, ajout… écrivez ici"
+msgstr "Question, addition… write here"
+
+msgid "Entrez le numéro à 6 chiffres reçu sur votre page de confirmation."
+msgstr "Enter the 6-digit number received on your confirmation page."
+
+msgid "ex : 847362"
+msgstr "e.g.: 847362"
+
+msgid "Suivre"
+msgstr "Track"
+
+msgid "Le numéro se trouve sur votre page de confirmation de commande."
+msgstr "The number can be found on your order confirmation page."
+
+msgid "c'est quoi ?"
+msgstr "what is it?"
+
+msgid ""
+"Un service de livraison simple, rapide et humain — disponible à Ixelles et "
+"Etterbeek."
+msgstr ""
+"A simple, fast and human delivery service — available in Ixelles and "
+"Etterbeek."
+
+msgid "Rapidité"
+msgstr "Speed"
+
+msgid "Commande traitée dès réception, livraison dans les meilleurs délais."
+msgstr "Order processed upon receipt, delivered as quickly as possible."
+
+msgid "Simplicité"
+msgstr "Simplicity"
+
+msgid "Pas de compte, pas d'inscription. Commandez en moins d'une minute."
+msgstr "No account, no registration. Order in less than a minute."
+
+msgid "Local"
+msgstr "Local"
+
+msgid ""
+"Un service de proximité — Ixelles & Etterbeek uniquement pour le moment."
+msgstr "A local service — Ixelles & Etterbeek only for now."
+
+msgid "Découvrez nos produits et passez votre commande en quelques clics."
+msgstr "Discover our products and place your order in just a few clicks."
+
+msgid "Voir le kiosque"
+msgstr "View the shop"
+
+msgid "Commander, c'est simple."
+msgstr "Ordering is simple."
+
+msgid "Trois étapes, pas de compte à créer, livraison directement chez vous."
+msgstr "Three steps, no account to create, delivery straight to your door."
+
+msgid "ÉTAPE 1"
+msgstr "STEP 1"
+
+msgid "Choisissez vos produits"
+msgstr "Choose your products"
+
+msgid ""
+"Parcourez le kiosque par catégorie et ajoutez ce que vous voulez au panier "
+"en un clic."
+msgstr ""
+"Browse the shop by category and add what you want to the cart in one click."
+
+msgid "Snacks"
+msgstr "Snacks"
+
+msgid "Sucrés"
+msgstr "Sweets"
+
+msgid "Boissons"
+msgstr "Drinks"
+
+msgid "Hygiène"
+msgstr "Hygiene"
+
+msgid "ÉTAPE 2"
+msgstr "STEP 2"
+
+msgid "Validez la commande"
+msgstr "Confirm the order"
+
+msgid ""
+"Entrez votre prénom, téléphone et adresse. Choisissez cash ou virement. "
+"C'est tout — en 30 secondes."
+msgstr ""
+"Enter your first name, phone and address. Choose cash or transfer. That's it"
+" — in 30 seconds."
+
+msgid "Virement"
+msgstr "Transfer"
+
+msgid "30 secondes"
+msgstr "30 seconds"
+
+msgid "ÉTAPE 3"
+msgstr "STEP 3"
+
+msgid "Je vous livre"
+msgstr "I deliver to you"
+
+msgid ""
+"Je prépare et livre directement chez vous à Ixelles ou Etterbeek. Frais "
+"fixes :"
+msgstr ""
+"I prepare and deliver directly to you in Ixelles or Etterbeek. Fixed fee:"
+
+msgid "Prêt à essayer ?"
+msgstr "Ready to try?"
+
+msgid ""
+"Quelques clics suffisent. Votre première commande est rapide et simple."
+msgstr "Just a few clicks. Your first order is fast and simple."
+
+msgid "Snacks salés"
+msgstr "Savoury Snacks"
+
+msgid "Snacks sucrés"
+msgstr "Sweet Snacks"
+
+msgid "Hygiène & maison"
+msgstr "Hygiene & Home"
+
+msgid "Prénom"
+msgstr "First name"
+
+msgid "Infos supplémentaires (optionnel)"
+msgstr "Additional info (optional)"
+
+msgid "Votre prénom"
+msgstr "Your first name"
+
+msgid "Rue, numéro, commune"
+msgstr "Street, number, municipality"
+
+msgid "Confidentialité"
+msgstr "Privacy"
+
+msgid "Cookies"
+msgstr "Cookies"
+
+msgid "Ce site utilise des cookies"
+msgstr "This site uses cookies"
+
+msgid "Uniquement des cookies nécessaires — panier, sécurité et langue. Zéro tracking, zéro pub."
+msgstr "Only necessary cookies — cart, security and language. Zero tracking, zero ads."
+
+msgid "En savoir plus"
+msgstr "Learn more"
+
+msgid "J'accepte"
+msgstr "I accept"
+
+msgid "Détails"
+msgstr "Details"
+
+msgid "Commande reçue — je vais la confirmer rapidement."
+msgstr "Order received — I'll confirm it shortly."
+
+msgid "C'est bon ! Je prépare vos articles."
+msgstr "Got it! I'm preparing your items."
+
+msgid "Je suis en route vers chez vous !"
+msgstr "I'm on my way to you!"
+
+msgid "Livraison effectuée. Merci et à bientôt !"
+msgstr "Delivered. Thank you and see you soon!"
+
+msgid "Confirmée"
+msgstr "Confirmed"
+
+msgid "Livrée"
+msgstr "Delivered"
+
+msgid "Devant chez vous"
+msgstr "At your door"
+
+msgid "Je suis devant votre porte !"
+msgstr "I'm at your door!"
+
+msgid "Bonjour %(name)s ! Votre commande #%(tracking)s a bien été reçue. Je la confirme très rapidement. N'hésitez pas à m'écrire ici si vous voulez ajouter quelque chose ou poser une question. 🛵"
+msgstr "Hello %(name)s! Your order #%(tracking)s has been received. I'll confirm it very shortly. Feel free to write here if you'd like to add something or ask a question. 🛵"

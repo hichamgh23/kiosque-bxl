@@ -1,0 +1,224 @@
+{% extends 'core/admin_base.html' %}
+{% load i18n %}
+{% block title %}Support — Admin Kiosque{% endblock %}
+{% block nav_support %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+    .sup-admin-page { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    .sup-admin-page h1 { font-family:'Fraunces',serif; font-size:1.6rem; color:var(--white); margin-bottom:1.5rem; }
+
+    .sessions-grid { display:flex; flex-direction:column; gap:1.2rem; }
+
+    .session-card {
+        background: var(--navy-card); border:1px solid rgba(255,255,255,0.07);
+        border-radius: var(--radius); overflow:hidden;
+    }
+    .session-head {
+        display:flex; align-items:center; gap:1rem;
+        padding:1rem 1.3rem; cursor:pointer;
+        transition: background 0.15s;
+    }
+    .session-head:hover { background: rgba(255,255,255,0.03); }
+    .session-avatar {
+        width:40px; height:40px; border-radius:50%;
+        background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.2);
+        display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0;
+    }
+    .session-info { flex:1; min-width:0; }
+    .session-name { font-weight:700; color:var(--white); font-size:0.9rem; }
+    .session-time { font-size:0.72rem; color:var(--text-muted); margin-top:0.1rem; }
+    .session-badge {
+        background:var(--danger); color:#fff;
+        font-size:0.65rem; font-weight:800; padding:2px 8px;
+        border-radius:99px; flex-shrink:0;
+    }
+    .session-chevron { color:var(--text-muted); font-size:0.7rem; transition:transform 0.2s; flex-shrink:0; }
+    .session-card.open .session-chevron { transform: rotate(180deg); }
+
+    .session-body { display:none; border-top:1px solid rgba(255,255,255,0.06); }
+    .session-card.open .session-body { display:flex; flex-direction:column; }
+
+    .chat-messages {
+        padding:1rem; height:280px; overflow-y:auto;
+        display:flex; flex-direction:column; gap:0.65rem; scroll-behavior:smooth;
+    }
+    .chat-messages::-webkit-scrollbar { width:3px; }
+    .chat-messages::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.08); border-radius:2px; }
+
+    .chat-msg { display:flex; flex-direction:column; max-width:80%; }
+    .from-admin  { align-self:flex-end; align-items:flex-end; }
+    .from-client { align-self:flex-start; align-items:flex-start; }
+    .chat-bubble { padding:0.55rem 0.85rem; border-radius:14px; font-size:0.87rem; line-height:1.45; word-break:break-word; }
+    .from-admin  .chat-bubble { background:var(--gold); color:var(--navy); font-weight:600; border-bottom-right-radius:4px; }
+    .from-client .chat-bubble { background:var(--navy-light); color:var(--text-body); border-bottom-left-radius:4px; }
+    .chat-time { font-size:0.62rem; color:var(--text-muted); margin-top:0.18rem; }
+    .chat-who  { font-size:0.65rem; color:var(--text-muted); margin-bottom:0.1rem; }
+
+    .chat-form {
+        display:flex; gap:0.6rem; padding:0.8rem 1rem;
+        border-top:1px solid rgba(255,255,255,0.06);
+    }
+    .chat-input {
+        flex:1; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1);
+        border-radius:8px; color:var(--white); padding:0.55rem 0.85rem;
+        font-family:'Manrope',sans-serif; font-size:0.87rem; outline:none;
+        transition:border-color 0.2s;
+    }
+    .chat-input:focus { border-color:var(--gold); }
+    .chat-input::placeholder { color:var(--text-muted); }
+    .chat-send {
+        background:var(--gold); color:var(--navy); border:none;
+        border-radius:8px; padding:0.55rem 1.1rem; font-weight:700;
+        font-size:0.85rem; cursor:pointer; transition:background 0.15s; flex-shrink:0;
+    }
+    .chat-send:hover { background:var(--gold-light); }
+.typing-dot { width:7px; height:7px; border-radius:50%; background:var(--text-muted); animation:tdot 1.2s ease infinite; display:inline-block; }
+.typing-dot:nth-child(2){ animation-delay:.2s; }
+.typing-dot:nth-child(3){ animation-delay:.4s; }
+@keyframes tdot{ 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-6px);opacity:1} }
+.typing-wrap { display:none; padding:0.3rem 1rem; align-items:center; gap:5px; }
+.typing-wrap.show { display:flex; }
+
+    .empty-state { text-align:center; padding:4rem 2rem; color:var(--text-muted); }
+    .empty-state .ico { font-size:3rem; margin-bottom:1rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sup-admin-page">
+    <a href="{% url 'dashboard' %}" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--text-muted);text-decoration:none;font-size:0.85rem;margin-bottom:1.5rem;transition:color 0.2s" onmouseover="this.style.color='white'" onmouseout="this.style.color=''">← Retour au dashboard</a>
+    <h1>💬 Support visiteurs</h1>
+
+    {% if sessions %}
+    <div class="sessions-grid">
+        {% for session in sessions %}
+        <div class="session-card" id="sc-{{ session.pk }}">
+            <div class="session-head" onclick="toggleSession({{ session.pk }})">
+                <div class="session-avatar">👤</div>
+                <div class="session-info">
+                    <div class="session-name">{{ session.visitor_name }}</div>
+                    <div class="session-time">{{ session.updated_at|date:"d/m/Y H:i" }}</div>
+                </div>
+                {% with unread=session.unread_count %}
+                {% if unread %}<span class="session-badge">{{ unread }} non lu{% if unread > 1 %}s{% endif %}</span>{% endif %}
+                {% endwith %}
+                <span class="session-chevron">▼</span>
+            </div>
+
+            <div class="session-body">
+                <div class="chat-messages" id="msgs-{{ session.pk }}">
+                    {% for msg in session.support_messages.all %}
+                    <div class="chat-msg {% if msg.is_admin %}from-admin{% else %}from-client{% endif %}"
+                         data-id="{{ msg.pk }}">
+                        <div class="chat-who">{% if msg.is_admin %}Vous{% else %}{{ session.visitor_name }}{% endif %}</div>
+                        <div class="chat-bubble">{{ msg.content }}</div>
+                        <div class="chat-time">{{ msg.created_at|time:"H:i" }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="typing-wrap" id="typing-{{ session.pk }}">
+                    <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+                </div>
+                <form class="chat-form" onsubmit="sendSupport(event, {{ session.pk }})">
+                    {% csrf_token %}
+                    <input type="text" class="chat-input" id="sinput-{{ session.pk }}"
+                        placeholder="Répondre à {{ session.visitor_name }}…" maxlength="500" autocomplete="off"
+                        oninput="signalTyping({{ session.pk }})">
+                    <button type="submit" class="chat-send">Envoyer</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="ico">💬</div>
+        <p>Aucune conversation pour le moment.</p>
+        <p style="font-size:0.82rem;margin-top:0.5rem">Les visiteurs qui utilisent le widget de support apparaîtront ici.</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+var openSessions = {};
+var lastIds = {};
+var pollIntervals = {};
+var CSRF = "{{ csrf_token }}";
+
+function toggleSession(id) {
+    var card = document.getElementById('sc-' + id);
+    var wasOpen = card.classList.contains('open');
+    card.classList.toggle('open');
+    if (!wasOpen) {
+        var msgs = document.getElementById('msgs-' + id);
+        msgs.scrollTop = msgs.scrollHeight;
+        // init lastId
+        var items = msgs.querySelectorAll('[data-id]');
+        lastIds[id] = items.length ? parseInt(items[items.length-1].dataset.id) || 0 : 0;
+        if (!pollIntervals[id]) {
+            pollIntervals[id] = setInterval(function() { pollSession(id); }, 1000);
+        }
+    }
+}
+
+function safeHtml(s) {
+    var d = document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+}
+
+function appendToSession(sessionId, msg) {
+    var box = document.getElementById('msgs-' + sessionId);
+    if (!box) return;
+    var div = document.createElement('div');
+    div.className = 'chat-msg ' + (msg.is_admin ? 'from-admin' : 'from-client');
+    div.dataset.id = msg.id;
+    div.innerHTML = '<div class="chat-who">' + (msg.is_admin ? 'Vous' : '') + '</div>'
+                  + '<div class="chat-bubble">' + safeHtml(msg.content) + '</div>'
+                  + '<div class="chat-time">' + msg.time + '</div>';
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+    if (msg.id > (lastIds[sessionId] || 0)) lastIds[sessionId] = msg.id;
+}
+
+function signalTyping(sessionId) {
+    fetch('/admin-kiosque/support/' + sessionId + '/typing/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF, 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
+}
+
+function sendSupport(e, sessionId) {
+    e.preventDefault();
+    var input = document.getElementById('sinput-' + sessionId);
+    var msg = input.value.trim();
+    if (!msg) return;
+    input.value = '';
+    fetch('/admin-kiosque/support/' + sessionId + '/send/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF, 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'content=' + encodeURIComponent(msg),
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(d) { if (d.id) appendToSession(sessionId, d); });
+}
+
+function pollSession(sessionId) {
+    var since = lastIds[sessionId] || 0;
+    fetch('/admin-kiosque/support/' + sessionId + '/poll/?since=' + since)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        data.messages.forEach(function(m) {
+            if (!m.is_admin) appendToSession(sessionId, m);
+        });
+        var tw = document.getElementById('typing-' + sessionId);
+        if (tw) {
+            if (data.typing) { tw.classList.add('show'); var b = document.getElementById('msgs-' + sessionId); if(b) b.scrollTop = b.scrollHeight; }
+            else { tw.classList.remove('show'); }
+        }
+    })
+    .catch(function() {});
+}
+</script>
+{% endblock %}

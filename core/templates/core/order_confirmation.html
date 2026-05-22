@@ -1,0 +1,175 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}Commande confirmée — Le Kiosque BXL{% endblock %}
+
+{% block extra_css %}
+<style>
+.confirm-wrap {
+    max-width: 520px; margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+    text-align: center;
+}
+
+/* ── Icône animée ── */
+.confirm-icon {
+    width: 76px; height: 76px; border-radius: 50%;
+    background: rgba(52,211,153,0.1);
+    border: 2px solid rgba(52,211,153,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.2rem; margin: 0 auto 1.4rem;
+    animation: pop 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both;
+}
+@keyframes pop  { from{opacity:0;transform:scale(0.3)} to{opacity:1;transform:scale(1)} }
+@keyframes up   { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+.confirm-title {
+    font-family: 'Fraunces', serif; font-size: 1.9rem;
+    color: var(--white); margin-bottom: 0.5rem;
+    animation: up 0.5s ease 0.2s both;
+}
+.confirm-sub {
+    color: var(--text-muted); font-size: 0.93rem; line-height: 1.65;
+    margin-bottom: 2rem;
+    animation: up 0.5s ease 0.3s both;
+}
+
+/* ── Numéro de suivi ── */
+.tracking-box {
+    background: rgba(245,166,35,0.07);
+    border: 1.5px solid rgba(245,166,35,0.25);
+    border-radius: var(--radius); padding: 1.3rem 1.5rem;
+    margin-bottom: 1rem;
+    animation: up 0.5s ease 0.4s both;
+}
+.tracking-label {
+    font-size: 0.68rem; font-weight: 700; color: var(--gold);
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;
+}
+.tracking-number {
+    font-family: 'Fraunces', serif; font-size: 2.4rem;
+    font-weight: 700; color: var(--gold); letter-spacing: 8px;
+    line-height: 1;
+}
+.tracking-hint { font-size: 0.73rem; color: var(--text-muted); margin-top: 0.5rem; }
+
+/* ── Récap ── */
+.co-recap {
+    background: var(--navy-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius);
+    text-align: left; margin-bottom: 1rem;
+    overflow: hidden;
+    animation: up 0.5s ease 0.5s both;
+}
+.co-recap-head {
+    padding: 0.9rem 1.3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    font-family: 'Fraunces', serif; font-size: 0.88rem; color: var(--white);
+}
+.co-recap-body { padding: 0.8rem 1.3rem; }
+.recap-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem; padding: 0.35rem 0;
+    color: var(--text-body);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.recap-row:last-of-type { border: none; }
+.recap-row .qty { color: var(--text-muted); margin-right: 0.3rem; }
+.recap-row .amt { font-weight: 600; color: var(--white); }
+.recap-info {
+    display: flex; gap: 1.2rem; flex-wrap: wrap;
+    padding: 0.8rem 1.3rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.78rem; color: var(--text-muted);
+}
+.recap-sep { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 0.5rem 0; }
+.recap-fee {
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem; color: var(--text-muted); padding: 0.25rem 0;
+}
+.recap-fee .amt { color: var(--gold); font-weight: 600; }
+.recap-total {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.9rem 1.3rem;
+    border-top: 2px solid rgba(255,255,255,0.08);
+    font-weight: 800; color: var(--white);
+}
+.recap-total .grand { font-size: 1.15rem; color: var(--gold); }
+
+/* ── CTA suivi ── */
+.track-cta {
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    background: var(--gold); color: var(--navy);
+    font-weight: 800; font-size: 0.97rem;
+    padding: 1rem 2rem; border-radius: 999px;
+    text-decoration: none; margin-bottom: 1rem;
+    box-shadow: 0 0 24px rgba(245,166,35,0.3);
+    transition: background 0.2s, box-shadow 0.2s;
+    animation: up 0.5s ease 0.6s both;
+}
+.track-cta:hover { background: var(--gold-light); box-shadow: 0 0 36px rgba(245,166,35,0.45); }
+
+.confirm-actions {
+    display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
+    animation: up 0.5s ease 0.7s both;
+}
+
+@media (max-width: 600px) {
+    .confirm-wrap { padding: 2rem 1rem 4rem; }
+    .tracking-number { font-size: 2rem; letter-spacing: 6px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="confirm-wrap">
+
+    <div class="confirm-icon">✅</div>
+
+    <h1 class="confirm-title">{% trans "Merci" %} {{ order.client_name }} !</h1>
+    <p class="confirm-sub">
+        {% trans "Votre commande a bien été enregistrée." %}<br>
+        {% trans "Je vous contacte rapidement pour confirmer la livraison." %}
+    </p>
+
+    <!-- Numéro de suivi -->
+    <div class="tracking-box">
+        <div class="tracking-label">{% trans "Numéro de suivi" %}</div>
+        <div class="tracking-number">{{ order.tracking_number }}</div>
+        <div class="tracking-hint">{% trans "Gardez ce numéro pour suivre votre commande." %}</div>
+    </div>
+
+    <!-- Récapitulatif -->
+    <div class="co-recap">
+        <div class="co-recap-head">{% trans "Récapitulatif" %}</div>
+        <div class="co-recap-body">
+            {% for item in order.items.all %}
+            <div class="recap-row">
+                <span><span class="qty">{{ item.quantity }}×</span> {{ item.product_name }}</span>
+                <span class="amt">{{ item.subtotal|floatformat:2 }}€</span>
+            </div>
+            {% endfor %}
+            <hr class="recap-sep">
+            <div class="recap-fee">
+                <span>🛵 {% trans "Livraison" %}</span>
+                <span class="amt">4.99€</span>
+            </div>
+        </div>
+        <div class="recap-total">
+            <span>{% trans "Total payé" %}</span>
+            <span class="grand">{{ order.total|floatformat:2 }}€ + 4.99€</span>
+        </div>
+        <div class="recap-info">
+            <span>📍 {{ order.address }}</span>
+            <span>💵 {% trans "Paiement à la livraison" %}</span>
+        </div>
+    </div>
+
+    <!-- Bouton suivi -->
+    <a href="{% url 'track_order' order.pk %}" class="track-cta">
+        🛵 {% trans "Suivre ma commande" %} →
+    </a>
+
+
+</div>
+{% endblock %}

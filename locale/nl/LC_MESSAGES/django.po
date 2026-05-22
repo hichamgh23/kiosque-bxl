@@ -1,0 +1,481 @@
+# Nederlandse vertalingen — Le Kiosque BXL
+msgid ""
+msgstr ""
+"Language: nl\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Accueil"
+msgstr "Home"
+
+msgid "Boutique"
+msgstr "Winkel"
+
+msgid "Commander"
+msgstr "Bestellen"
+
+msgid "Commander maintenant"
+msgstr "Nu bestellen"
+
+msgid "Confirmer la commande"
+msgstr "Bestelling bevestigen"
+
+msgid "Passer la commande"
+msgstr "Bestelling plaatsen"
+
+msgid "Ouvrir le kiosque"
+msgstr "Winkel openen"
+
+msgid "Comment ça marche"
+msgstr "Hoe werkt het"
+
+msgid "À propos"
+msgstr "Over ons"
+
+msgid "Suivi commande"
+msgstr "Bestelling volgen"
+
+msgid "Suivre ma commande"
+msgstr "Mijn bestelling volgen"
+
+msgid "Nous contacter"
+msgstr "Contacteer ons"
+
+msgid "Mon panier"
+msgstr "Mijn winkelwagen"
+
+msgid "Votre panier est vide."
+msgstr "Uw winkelwagen is leeg."
+
+msgid "Récapitulatif"
+msgstr "Samenvatting"
+
+msgid "Votre commande"
+msgstr "Uw bestelling"
+
+msgid "Nos meilleures ventes"
+msgstr "Onze bestsellers"
+
+msgid "Populaires"
+msgstr "Populair"
+
+msgid "Voir tous les produits"
+msgstr "Alle producten bekijken"
+
+msgid "Voir les produits"
+msgstr "Producten bekijken"
+
+msgid "Voir"
+msgstr "Bekijken"
+
+msgid "Tous les produits"
+msgstr "Alle producten"
+
+msgid "Aucun produit pour l'instant."
+msgstr "Nog geen producten."
+
+msgid "Rupture"
+msgstr "Uitverkocht"
+
+msgid "Articles commandés"
+msgstr "Bestelde artikelen"
+
+msgid "Total"
+msgstr "Totaal"
+
+msgid "Paiement"
+msgstr "Betaling"
+
+msgid "Client"
+msgstr "Klant"
+
+msgid "Téléphone"
+msgstr "Telefoon"
+
+msgid "Adresse de livraison"
+msgstr "Leveringsadres"
+
+msgid "Statut"
+msgstr "Status"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Commande"
+msgstr "Bestelling"
+
+msgid "Produit"
+msgstr "Product"
+
+msgid "Enregistrer"
+msgstr "Opslaan"
+
+msgid "Retour"
+msgstr "Terug"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Infos"
+msgstr "Info"
+
+msgid "En attente"
+msgstr "In afwachting"
+
+msgid "En livraison"
+msgstr "Onderweg"
+
+msgid "Livrées"
+msgstr "Geleverd"
+
+msgid "Toutes"
+msgstr "Alle"
+
+msgid "Aucune commande."
+msgstr "Geen bestellingen."
+
+msgid "Tous droits réservés"
+msgstr "Alle rechten voorbehouden"
+
+msgid "Bruxelles, Belgique"
+msgstr "Brussel, België"
+
+msgid "Prêt à commander ?"
+msgstr "Klaar om te bestellen?"
+
+msgid "Paiement à la livraison"
+msgstr "Betaling bij levering"
+
+msgid "Cash ou virement"
+msgstr "Cash of overschrijving"
+
+msgid "Livraison rapide"
+msgstr "Snelle levering"
+
+msgid "article"
+msgstr "artikel"
+
+msgid "Français"
+msgstr "Français"
+
+msgid "English"
+msgstr "English"
+
+msgid "Nederlands"
+msgstr "Nederlands"
+
+msgid ""
+"Snacks, boissons et hygiène livrés rapidement à votre porte. Service "
+"disponible à Ixelles et Etterbeek."
+msgstr ""
+"Snacks, dranken en hygiëneproducten snel aan uw deur geleverd. Service "
+"beschikbaar in Elsene en Etterbeek."
+
+msgid "En ligne · Répond rapidement"
+msgstr "Online · Reageert snel"
+
+msgid ""
+"Bonjour ! 👋 Comment puis-je vous aider ? N'hésitez pas à me poser une "
+"question ou à passer commande."
+msgstr ""
+"Hallo! 👋 Hoe kan ik u helpen? Stel gerust een vraag of plaats een "
+"bestelling."
+
+msgid "Prénom :"
+msgstr "Voornaam:"
+
+msgid "Votre prénom…"
+msgstr "Uw voornaam…"
+
+msgid "Votre message…"
+msgstr "Uw bericht…"
+
+msgid "Commandez en ligne,"
+msgstr "Bestel online,"
+
+msgid "recevez à votre porte."
+msgstr "ontvang aan uw deur."
+
+msgid "Livraison rapide à Ixelles & Etterbeek."
+msgstr "Snelle levering in Elsene & Etterbeek."
+
+msgid "Payez à la livraison, aucun compte requis."
+msgstr "Betaal bij levering, geen account vereist."
+
+msgid "Comment ça marche ?"
+msgstr "Hoe werkt het?"
+
+msgid "Livraison"
+msgstr "Levering"
+
+msgid "À la livraison"
+msgstr "Bij levering"
+
+msgid "Rapide"
+msgstr "Snel"
+
+msgid "Ajouter"
+msgstr "Toevoegen"
+
+msgid "unité"
+msgstr "stuk"
+
+msgid "Retirer"
+msgstr "Verwijderen"
+
+msgid "Sous-total"
+msgstr "Subtotaal"
+
+msgid "Coordonnées"
+msgstr "Contactgegevens"
+
+msgid "Mode de paiement"
+msgstr "Betaalmethode"
+
+msgid "Cash"
+msgstr "Contant"
+
+msgid "Carte"
+msgstr "Kaart"
+
+msgid "Merci"
+msgstr "Bedankt"
+
+msgid "Votre commande a bien été enregistrée."
+msgstr "Uw bestelling is succesvol geplaatst."
+
+msgid "Je vous contacte rapidement pour confirmer la livraison."
+msgstr "Ik neem snel contact met u op om de levering te bevestigen."
+
+msgid "Numéro de suivi"
+msgstr "Trackingnummer"
+
+msgid "Gardez ce numéro pour suivre votre commande."
+msgstr "Bewaar dit nummer om uw bestelling te volgen."
+
+msgid "Total payé"
+msgstr "Totaal betaald"
+
+msgid "Suivi de commande"
+msgstr "Bestelling volgen"
+
+msgid "Bonjour"
+msgstr "Hallo"
+
+msgid "N° de suivi"
+msgstr "Trackingnr."
+
+msgid "Commande annulée"
+msgstr "Bestelling geannuleerd"
+
+msgid ""
+"Cette commande a été annulée. Écrivez-moi si vous pensez qu'il s'agit d'une "
+"erreur."
+msgstr ""
+"Deze bestelling is geannuleerd. Schrijf me als u denkt dat dit een fout is."
+
+msgid "Terminée"
+msgstr "Voltooid"
+
+msgid "En cours"
+msgstr "Bezig"
+
+msgid "À venir"
+msgstr "Komend"
+
+msgid "Statut actuel"
+msgstr "Huidige status"
+
+msgid "Question, ajout… écrivez ici"
+msgstr "Vraag, toevoeging… schrijf hier"
+
+msgid "Entrez le numéro à 6 chiffres reçu sur votre page de confirmation."
+msgstr ""
+"Voer het 6-cijferige nummer in dat u op uw bevestigingspagina heeft "
+"ontvangen."
+
+msgid "ex : 847362"
+msgstr "bv.: 847362"
+
+msgid "Suivre"
+msgstr "Volgen"
+
+msgid "Le numéro se trouve sur votre page de confirmation de commande."
+msgstr "Het nummer staat op uw bestellingsbevestigingspagina."
+
+msgid "c'est quoi ?"
+msgstr "wat is het?"
+
+msgid ""
+"Un service de livraison simple, rapide et humain — disponible à Ixelles et "
+"Etterbeek."
+msgstr ""
+"Een eenvoudige, snelle en menselijke bezorgservice — beschikbaar in Elsene "
+"en Etterbeek."
+
+msgid "Rapidité"
+msgstr "Snelheid"
+
+msgid "Commande traitée dès réception, livraison dans les meilleurs délais."
+msgstr "Bestelling verwerkt bij ontvangst, zo snel mogelijk geleverd."
+
+msgid "Simplicité"
+msgstr "Eenvoud"
+
+msgid "Pas de compte, pas d'inscription. Commandez en moins d'une minute."
+msgstr "Geen account, geen registratie. Bestel in minder dan een minuut."
+
+msgid "Local"
+msgstr "Lokaal"
+
+msgid ""
+"Un service de proximité — Ixelles & Etterbeek uniquement pour le moment."
+msgstr "Een lokale service — voorlopig alleen Elsene & Etterbeek."
+
+msgid "Découvrez nos produits et passez votre commande en quelques clics."
+msgstr "Ontdek onze producten en plaats uw bestelling in een paar klikken."
+
+msgid "Voir le kiosque"
+msgstr "Winkel bekijken"
+
+msgid "Commander, c'est simple."
+msgstr "Bestellen is eenvoudig."
+
+msgid "Trois étapes, pas de compte à créer, livraison directement chez vous."
+msgstr "Drie stappen, geen account nodig, levering rechtstreeks bij u thuis."
+
+msgid "ÉTAPE 1"
+msgstr "STAP 1"
+
+msgid "Choisissez vos produits"
+msgstr "Kies uw producten"
+
+msgid ""
+"Parcourez le kiosque par catégorie et ajoutez ce que vous voulez au panier "
+"en un clic."
+msgstr ""
+"Blader door de winkel per categorie en voeg toe wat u wilt aan het "
+"winkelwagentje met één klik."
+
+msgid "Snacks"
+msgstr "Snacks"
+
+msgid "Sucrés"
+msgstr "Snoep"
+
+msgid "Boissons"
+msgstr "Dranken"
+
+msgid "Hygiène"
+msgstr "Hygiëne"
+
+msgid "ÉTAPE 2"
+msgstr "STAP 2"
+
+msgid "Validez la commande"
+msgstr "Bevestig de bestelling"
+
+msgid ""
+"Entrez votre prénom, téléphone et adresse. Choisissez cash ou virement. "
+"C'est tout — en 30 secondes."
+msgstr ""
+"Voer uw voornaam, telefoon en adres in. Kies contant of overschrijving. Dat "
+"is alles — in 30 seconden."
+
+msgid "Virement"
+msgstr "Overschrijving"
+
+msgid "30 secondes"
+msgstr "30 seconden"
+
+msgid "ÉTAPE 3"
+msgstr "STAP 3"
+
+msgid "Je vous livre"
+msgstr "Ik lever bij u"
+
+msgid ""
+"Je prépare et livre directement chez vous à Ixelles ou Etterbeek. Frais "
+"fixes :"
+msgstr ""
+"Ik bereid voor en lever rechtstreeks bij u thuis in Elsene of Etterbeek. "
+"Vaste kosten:"
+
+msgid "Prêt à essayer ?"
+msgstr "Klaar om te proberen?"
+
+msgid ""
+"Quelques clics suffisent. Votre première commande est rapide et simple."
+msgstr "Een paar klikken volstaan. Uw eerste bestelling is snel en eenvoudig."
+
+msgid "Livraison 4.99€ · Paiement à la livraison · Ixelles & Etterbeek"
+msgstr "Levering 4.99€ · Betaling bij levering · Elsene & Etterbeek"
+
+msgid "Snacks salés"
+msgstr "Hartige Snacks"
+
+msgid "Snacks sucrés"
+msgstr "Zoete Snacks"
+
+msgid "Hygiène & maison"
+msgstr "Hygiene & Huis"
+
+msgid "Prénom"
+msgstr "Voornaam"
+
+msgid "Infos supplémentaires (optionnel)"
+msgstr "Extra info (optioneel)"
+
+msgid "Votre prénom"
+msgstr "Uw voornaam"
+
+msgid "Rue, numéro, commune"
+msgstr "Straat, nummer, gemeente"
+
+msgid "Confidentialité"
+msgstr "Privacy"
+
+msgid "Cookies"
+msgstr "Cookies"
+
+msgid "Ce site utilise des cookies"
+msgstr "Deze site gebruikt cookies"
+
+msgid "Uniquement des cookies nécessaires — panier, sécurité et langue. Zéro tracking, zéro pub."
+msgstr "Alleen noodzakelijke cookies — winkelwagen, beveiliging en taal. Nul tracking, nul reclame."
+
+msgid "En savoir plus"
+msgstr "Meer info"
+
+msgid "J'accepte"
+msgstr "Ik accepteer"
+
+msgid "Détails"
+msgstr "Details"
+
+msgid "Commande reçue — je vais la confirmer rapidement."
+msgstr "Bestelling ontvangen — ik bevestig zo snel mogelijk."
+
+msgid "C'est bon ! Je prépare vos articles."
+msgstr "Oké! Ik bereid uw artikelen voor."
+
+msgid "Je suis en route vers chez vous !"
+msgstr "Ik ben onderweg naar u!"
+
+msgid "Livraison effectuée. Merci et à bientôt !"
+msgstr "Geleverd. Bedankt en tot ziens!"
+
+msgid "Confirmée"
+msgstr "Bevestigd"
+
+msgid "Livrée"
+msgstr "Geleverd"
+
+msgid "Devant chez vous"
+msgstr "Voor uw deur"
+
+msgid "Je suis devant votre porte !"
+msgstr "Ik sta voor uw deur!"
+
+msgid "Bonjour %(name)s ! Votre commande #%(tracking)s a bien été reçue. Je la confirme très rapidement. N'hésitez pas à m'écrire ici si vous voulez ajouter quelque chose ou poser une question. 🛵"
+msgstr "Hallo %(name)s! Uw bestelling #%(tracking)s is ontvangen. Ik bevestig zo snel mogelijk. Schrijf gerust als u iets wilt toevoegen of een vraag heeft. 🛵"

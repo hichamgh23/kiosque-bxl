@@ -1,0 +1,108 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}À propos — Le Kiosque BXL{% endblock %}
+
+{% block extra_css %}
+<style>
+.about-page { max-width: 700px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+
+.about-hero { text-align: center; margin-bottom: 3.5rem; }
+.about-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--white); line-height: 1.15; margin-bottom: 1rem;
+}
+.about-hero h1 em { font-style: italic; color: var(--gold); }
+.about-hero p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; max-width: 480px; margin: 0 auto; }
+
+.about-block {
+    background: var(--navy-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius-lg); padding: 2.5rem;
+    margin-bottom: 1.2rem;
+}
+.about-block p { color: var(--text-body); line-height: 1.85; font-size: 0.97rem; }
+.about-block p + p { margin-top: 1rem; }
+.hl { color: var(--white); font-weight: 600; }
+
+.values-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; margin-bottom: 1.2rem;
+}
+.value-card {
+    background: var(--navy-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius); padding: 1.6rem 1rem; text-align: center;
+}
+.value-card .vi { font-size: 1.8rem; margin-bottom: 0.7rem; }
+.value-card h3 { font-family: 'Fraunces', serif; font-size: 0.95rem; color: var(--white); margin-bottom: 0.35rem; }
+.value-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+.about-cta {
+    background: linear-gradient(135deg, rgba(245,166,35,0.09), rgba(245,166,35,0.02));
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: var(--radius-lg); padding: 2.5rem;
+    text-align: center;
+}
+.about-cta h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--white); margin-bottom: 0.5rem; }
+.about-cta p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+@media (max-width: 600px) {
+    .about-page { padding: 2.5rem 1rem 4rem; }
+    .about-block { padding: 1.8rem 1.2rem; }
+    .values-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="about-page">
+
+    <div class="about-hero">
+        <h1>Le Kiosque BXL,<br><em>{% trans "c'est quoi ?" %}</em></h1>
+        <p>{% trans "Un service de livraison simple, rapide et humain — disponible à Ixelles et Etterbeek." %}</p>
+    </div>
+
+    <div class="about-block">
+        <p>
+            <span class="hl">Le Kiosque BXL</span> est une boutique de livraison à domicile.
+            Snacks, boissons, produits d'hygiène — vous commandez en ligne,
+            on livre directement à votre porte.
+        </p>
+        <p>
+            Pas de supermarché à traverser, pas de file d'attente.
+            Juste une commande passée en quelques clics, livrée rapidement.
+        </p>
+        <p>
+            On livre à <span class="hl">Ixelles et Etterbeek</span>, les frais de livraison
+            sont fixes à <span class="hl">4.99€</span> quelle que soit la taille de la commande,
+            et le paiement se fait à la livraison — cash ou carte.
+        </p>
+    </div>
+
+    <div class="values-grid">
+        <div class="value-card">
+            <div class="vi">⚡</div>
+            <h3>{% trans "Rapidité" %}</h3>
+            <p>{% trans "Commande traitée dès réception, livraison dans les meilleurs délais." %}</p>
+        </div>
+        <div class="value-card">
+            <div class="vi">🤝</div>
+            <h3>{% trans "Simplicité" %}</h3>
+            <p>{% trans "Pas de compte, pas d'inscription. Commandez en moins d'une minute." %}</p>
+        </div>
+        <div class="value-card">
+            <div class="vi">📍</div>
+            <h3>{% trans "Local" %}</h3>
+            <p>{% trans "Un service de proximité — Ixelles & Etterbeek uniquement pour le moment." %}</p>
+        </div>
+    </div>
+
+    <div class="about-cta">
+        <h3>{% trans "Prêt à commander ?" %}</h3>
+        <p>{% trans "Découvrez nos produits et passez votre commande en quelques clics." %}</p>
+        <a href="{% url 'kiosque' %}" class="btn btn-gold">{% trans "Voir le kiosque" %} →</a>
+    </div>
+
+</div>
+{% endblock %}

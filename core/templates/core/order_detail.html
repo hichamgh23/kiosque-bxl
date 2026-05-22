@@ -1,0 +1,239 @@
+{% extends 'core/admin_base.html' %}
+{% block title %}Commande #{{ order.pk }} — Admin Kiosque{% endblock %}
+{% block nav_commandes %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+.detail-head { display:flex; align-items:center; gap:1rem; margin-bottom:1.8rem; flex-wrap:wrap; }
+.back-link { display:inline-flex; align-items:center; gap:0.35rem; color:var(--text-muted); text-decoration:none; font-size:0.85rem; transition:color 0.2s; }
+.back-link:hover { color:var(--white); }
+.detail-head h1 { font-family:'Fraunces',serif; font-size:1.5rem; color:var(--white); }
+.track-tag { font-family:'Fraunces',serif; font-size:1rem; color:var(--gold); }
+
+.detail-grid { display:grid; grid-template-columns:1fr 300px; gap:1.5rem; margin-bottom:1.5rem; }
+@media(max-width:760px){ .detail-grid{grid-template-columns:1fr;} }
+
+.panel { background:var(--navy-card); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius); padding:1.4rem; }
+.panel-title { font-family:'Fraunces',serif; font-size:0.95rem; color:var(--white); margin-bottom:1rem; }
+
+.order-line { display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.88rem; }
+.order-line:last-of-type { border:none; }
+.order-line .name { color:var(--text-body); }
+.order-line .price { font-weight:700; color:var(--white); }
+.order-total { display:flex; justify-content:space-between; font-size:1rem; font-weight:800; margin-top:1rem; padding-top:0.8rem; border-top:1px solid rgba(255,255,255,0.1); }
+.order-total .amt { color:var(--gold); }
+
+.info-row { margin-bottom:0.9rem; }
+.info-row:last-child { margin-bottom:0; }
+.info-k { font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.2rem; }
+.info-v { font-size:0.9rem; color:var(--white); }
+
+.status-form { display:flex; flex-direction:column; gap:0.8rem; }
+.status-select-wrap { position:relative; }
+.status-select-wrap::after {
+    content:'▾'; position:absolute; right:0.9rem; top:50%; transform:translateY(-50%);
+    color:var(--text-muted); pointer-events:none; font-size:0.8rem;
+}
+
+/* Chat */
+.chat-panel { background:var(--navy-card); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius); overflow:hidden; }
+.chat-head { display:flex; align-items:center; gap:0.9rem; padding:1rem 1.2rem; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.01); }
+.chat-av { width:38px; height:38px; border-radius:50%; background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.2); display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.chat-av-name { font-weight:700; color:var(--white); font-size:0.88rem; }
+.chat-av-sub { font-size:0.68rem; color:var(--text-muted); }
+.chat-msgs { padding:1rem; height:320px; overflow-y:auto; display:flex; flex-direction:column; gap:0.7rem; scroll-behavior:smooth; }
+.chat-msgs::-webkit-scrollbar { width:3px; }
+.chat-msgs::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.08); border-radius:2px; }
+.cmsg { display:flex; flex-direction:column; max-width:80%; }
+.cmsg.adm { align-self:flex-end; align-items:flex-end; }
+.cmsg.cli { align-self:flex-start; align-items:flex-start; }
+.cwho { font-size:0.65rem; color:var(--text-muted); margin-bottom:0.15rem; }
+.cbub { padding:0.55rem 0.85rem; border-radius:14px; font-size:0.87rem; line-height:1.45; word-break:break-word; }
+.adm .cbub { background:var(--gold); color:var(--navy); font-weight:600; border-bottom-right-radius:4px; }
+.cli .cbub { background:var(--navy-light); color:var(--text-body); border-bottom-left-radius:4px; }
+.ctime { font-size:0.62rem; color:var(--text-muted); margin-top:0.15rem; }
+.chat-bar { display:flex; gap:0.5rem; padding:0.8rem 1rem; border-top:1px solid rgba(255,255,255,0.07); }
+.chat-inp { flex:1; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:10px; color:var(--white); padding:0.6rem 1rem; font-family:'Manrope',sans-serif; font-size:0.88rem; outline:none; transition:border-color 0.2s; }
+.chat-inp:focus { border-color:var(--gold); }
+.chat-inp::placeholder { color:var(--text-muted); }
+.chat-snd { background:var(--gold); color:var(--navy); border:none; border-radius:10px; padding:0.6rem 1.1rem; font-weight:700; font-size:0.85rem; cursor:pointer; font-family:'Manrope',sans-serif; transition:background 0.15s; flex-shrink:0; }
+.chat-snd:hover { background:var(--gold-light); }
+.typing-dot { width:7px; height:7px; border-radius:50%; background:var(--text-muted); animation:tdot 1.2s ease infinite; display:inline-block; }
+.typing-dot:nth-child(2){ animation-delay:.2s; }
+.typing-dot:nth-child(3){ animation-delay:.4s; }
+@keyframes tdot{ 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-6px);opacity:1} }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="detail-head">
+    <a href="{% url 'admin_dashboard' %}" class="back-link">← Retour</a>
+    <h1>Commande #{{ order.pk }} <span class="track-tag">#{{ order.tracking_number }}</span></h1>
+    <span class="badge badge-{{ order.status }}">{{ order.get_status_display }}</span>
+</div>
+
+<div class="detail-grid">
+    <!-- Articles -->
+    <div class="panel">
+        <div class="panel-title">Articles commandés</div>
+        {% for item in order.items.all %}
+        <div class="order-line">
+            <span class="name">{{ item.quantity }}× {{ item.product_name }}</span>
+            <span class="price">{{ item.subtotal|floatformat:2 }}€</span>
+        </div>
+        {% endfor %}
+        <div class="order-total">
+            <span>Total</span>
+            <span class="amt">{{ order.total|floatformat:2 }}€ + 4.99€</span>
+        </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+        <!-- Infos client -->
+        <div class="panel">
+            <div class="panel-title">👤 Client</div>
+            <div class="info-row"><div class="info-k">Prénom</div><div class="info-v">{{ order.client_name }}</div></div>
+            <div class="info-row"><div class="info-k">Téléphone</div><div class="info-v"><a href="tel:{{ order.phone }}" style="color:var(--gold);text-decoration:none">{{ order.phone }}</a></div></div>
+            <div class="info-row"><div class="info-k">Adresse</div><div class="info-v">{{ order.address }}</div></div>
+            <div class="info-row"><div class="info-k">Paiement</div><div class="info-v">💵 Paiement à la livraison</div></div>
+            <div class="info-row"><div class="info-k">Date</div><div class="info-v">{{ order.created_at|date:"d/m/Y H:i" }}</div></div>
+            {% if order.notes %}<div class="info-row"><div class="info-k">Notes</div><div class="info-v">{{ order.notes }}</div></div>{% endif %}
+        </div>
+
+        <!-- Changer statut -->
+        <div class="panel">
+            <div class="panel-title">🔄 Changer le statut</div>
+            <form method="post" class="status-form">
+                {% csrf_token %}
+                <div class="status-select-wrap">
+                    <select name="status" class="form-select">
+                        {% for val, lbl in status_choices %}
+                        <option value="{{ val }}" {% if order.status == val %}selected{% endif %}>{{ lbl }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Chat -->
+<div class="chat-panel">
+    <div class="chat-head">
+        <div class="chat-av">👤</div>
+        <div>
+            <div class="chat-av-name">{{ order.client_name }}</div>
+            <div class="chat-av-sub">Messages de la commande #{{ order.tracking_number }}</div>
+        </div>
+    </div>
+
+    <div class="chat-msgs" id="chat-msgs" data-client="{{ order.client_name|escapejs }}" style="padding-bottom:0.2rem">
+        {% for msg in messages %}
+        <div class="cmsg {% if msg.is_admin %}adm{% else %}cli{% endif %}" data-id="{{ msg.pk }}">
+            <div class="cwho">{% if msg.is_admin %}Vous{% else %}{{ order.client_name }}{% endif %}</div>
+            <div class="cbub">{{ msg.content }}</div>
+            <div class="ctime">{{ msg.created_at|time:"H:i" }}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="typing-wrap" style="display:none;padding:0.3rem 1rem;align-items:center;gap:5px">
+        <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+    </div>
+    <div class="chat-bar">
+        <input type="text" id="chat-inp" class="chat-inp" placeholder="Répondre au client…" maxlength="500" autocomplete="off">
+        <button type="button" id="chat-snd-btn" class="chat-snd">Envoyer</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+var SEND_URL   = "{% url 'send_message' order.pk %}";
+var GET_URL    = "{% url 'get_messages' order.pk %}";
+var TYPING_URL = "{% url 'set_typing' order.pk %}";
+var CSRF_TOK   = "{{ csrf_token }}";
+
+var chatBox    = document.getElementById('chat-msgs');
+var chatInp    = document.getElementById('chat-inp');
+var chatBtn    = document.getElementById('chat-snd-btn');
+var typingWrap = document.getElementById('typing-wrap');
+var clientName = chatBox ? chatBox.dataset.client : '';
+var lastId     = 0;
+var pending    = new Set();
+
+if(chatBox){
+    chatBox.querySelectorAll('[data-id]').forEach(function(el){
+        var id = parseInt(el.dataset.id)||0;
+        if(id > lastId) lastId = id;
+    });
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function addMsg(id, content, isAdmin, time){
+    if(!chatBox) return;
+    if(id && id <= lastId) return;
+    if(id && isAdmin && pending.has(content)){
+        pending.delete(content);
+        if(id > lastId) lastId = id;
+        return;
+    }
+    var row = document.createElement('div');
+    row.className = 'cmsg ' + (isAdmin ? 'adm' : 'cli');
+    if(id) row.dataset.id = id;
+    var who = document.createElement('div'); who.className = 'cwho';
+    who.textContent = isAdmin ? 'Vous' : clientName;
+    var b = document.createElement('div'); b.className = 'cbub';
+    b.appendChild(document.createTextNode(content));
+    var t = document.createElement('div'); t.className = 'ctime'; t.textContent = time;
+    row.appendChild(who); row.appendChild(b); row.appendChild(t);
+    chatBox.appendChild(row);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    if(id && id > lastId) lastId = id;
+}
+
+function sendMsg(){
+    if(!chatInp) return;
+    var msg = chatInp.value.trim();
+    if(!msg) return;
+    var now = new Date();
+    var hm  = ('0'+now.getHours()).slice(-2)+':'+('0'+now.getMinutes()).slice(-2);
+    chatInp.value = '';
+    pending.add(msg);
+    addMsg(null, msg, true, hm);
+    fetch(SEND_URL, {
+        method: 'POST',
+        headers: {'X-CSRFToken': CSRF_TOK, 'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'content=' + encodeURIComponent(msg)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+        pending.delete(d.content || msg);
+        if(d.id && d.id > lastId) lastId = d.id;
+    })
+    .catch(function(){ pending.delete(msg); });
+}
+
+if(chatBtn) chatBtn.addEventListener('click', sendMsg);
+if(chatInp){
+    chatInp.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendMsg(); }
+    });
+    chatInp.addEventListener('input', function(){
+        fetch(TYPING_URL, {method:'POST', headers:{'X-CSRFToken':CSRF_TOK,'Content-Type':'application/x-www-form-urlencoded'}});
+    });
+}
+
+setInterval(function(){
+    fetch(GET_URL + '?since=' + lastId)
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+        data.messages.forEach(function(m){ addMsg(m.id, m.content, m.is_admin, m.time); });
+        if(typingWrap) typingWrap.style.display = data.typing ? 'flex' : 'none';
+        if(data.typing && chatBox) chatBox.scrollTop = chatBox.scrollHeight;
+    })
+    .catch(function(){});
+}, 1000);
+</script>
+{% endblock %}

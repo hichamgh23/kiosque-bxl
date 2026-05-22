@@ -1,0 +1,89 @@
+{% extends 'core/admin_base.html' %}
+{% block title %}Commandes — Admin Kiosque{% endblock %}
+{% block nav_commandes %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+.dash-head { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.8rem; }
+.dash-head h1 { font-family:'Fraunces',serif; font-size:1.7rem; color:var(--white); }
+
+.stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(130px,1fr)); gap:1rem; margin-bottom:1.8rem; }
+.stat { background:var(--navy-card); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius); padding:1.2rem; text-align:center; }
+.stat .n { font-family:'Fraunces',serif; font-size:2rem; font-weight:700; color:var(--gold); display:block; line-height:1; }
+.stat .l { font-size:0.7rem; color:var(--text-muted); margin-top:0.4rem; text-transform:uppercase; letter-spacing:0.8px; }
+
+.filters { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.4rem; }
+.filter-pill { padding:0.3rem 1rem; border-radius:999px; border:1px solid rgba(255,255,255,0.12); background:transparent; color:var(--text-muted); font-size:0.78rem; font-weight:600; text-decoration:none; transition:all 0.2s; }
+.filter-pill:hover { color:var(--white); border-color:rgba(255,255,255,0.3); }
+.filter-pill.active { background:var(--gold); color:var(--navy); border-color:var(--gold); }
+
+.table-wrap { background:var(--navy-card); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius); overflow:hidden; overflow-x:auto; }
+table { width:100%; border-collapse:collapse; min-width:560px; }
+th { padding:0.75rem 1rem; text-align:left; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-muted); font-weight:700; border-bottom:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); }
+td { padding:0.9rem 1rem; border-top:1px solid rgba(255,255,255,0.04); font-size:0.86rem; color:var(--text-body); vertical-align:middle; }
+tr:hover td { background:rgba(255,255,255,0.02); }
+.td-name { font-weight:700; color:var(--white); }
+.action-link { color:var(--gold); text-decoration:none; font-weight:700; font-size:0.82rem; white-space:nowrap; }
+.action-link:hover { text-decoration:underline; }
+.empty-row td { text-align:center; padding:3rem; color:var(--text-muted); }
+
+.new-dot { display:inline-block; width:7px; height:7px; background:var(--gold); border-radius:50%; margin-right:0.4rem; animation: pulse 1.5s ease infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+@media(max-width:640px){ .stats{grid-template-columns:repeat(2,1fr);} }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dash-head">
+    <h1>📦 Commandes</h1>
+    <a href="{% url 'admin:core_product_add' %}" class="btn btn-gold btn-sm">+ Produit</a>
+</div>
+
+<div class="stats">
+    <div class="stat"><span class="n">{{ counts.total }}</span><span class="l">Total</span></div>
+    <div class="stat"><span class="n" style="color:var(--gold)">{{ counts.en_attente }}</span><span class="l">En attente</span></div>
+    <div class="stat"><span class="n" style="color:#60a5fa">{{ counts.confirmee }}</span><span class="l">Confirmées</span></div>
+    <div class="stat"><span class="n" style="color:#a78bfa">{{ counts.en_livraison }}</span><span class="l">En livraison</span></div>
+    <div class="stat"><span class="n" style="color:var(--success)">{{ counts.livree }}</span><span class="l">Livrées</span></div>
+</div>
+
+<div class="filters">
+    <a href="{% url 'admin_dashboard' %}" class="filter-pill {% if not current_filter %}active{% endif %}">Toutes</a>
+    {% for val, lbl in status_choices %}
+    <a href="{% url 'admin_dashboard' %}?status={{ val }}" class="filter-pill {% if current_filter == val %}active{% endif %}">{{ lbl }}</a>
+    {% endfor %}
+</div>
+
+<div class="table-wrap">
+    <table>
+        <thead><tr>
+            <th>#</th>
+            <th>Client</th>
+            <th>Téléphone</th>
+            <th>Adresse</th>
+            <th>Statut</th>
+            <th>Date</th>
+            <th></th>
+        </tr></thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>#{{ order.pk }}</td>
+                <td>
+                    {% if order.status == 'en_attente' %}<span class="new-dot"></span>{% endif %}
+                    <span class="td-name">{{ order.client_name }}</span>
+                </td>
+                <td><a href="tel:{{ order.phone }}" style="color:var(--text-body);text-decoration:none">{{ order.phone }}</a></td>
+                <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ order.address }}</td>
+                <td><span class="badge badge-{{ order.status }}">{{ order.get_status_display }}</span></td>
+                <td style="color:var(--text-muted);white-space:nowrap">{{ order.created_at|date:"d/m H:i" }}</td>
+                <td><a href="{% url 'admin_order_detail' order.id %}" class="action-link">Voir →</a></td>
+            </tr>
+            {% empty %}
+            <tr class="empty-row"><td colspan="8">Aucune commande.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

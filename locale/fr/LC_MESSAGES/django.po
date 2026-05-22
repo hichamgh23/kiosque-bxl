@@ -1,0 +1,327 @@
+# French translations for CoursierBXL (source language — msgstr peut rester vide)
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+
+msgid "Français"
+msgstr "Français"
+
+msgid "English"
+msgstr "English"
+
+msgid "Nederlands"
+msgstr "Nederlands"
+
+msgid "Services"
+msgstr "Services"
+
+msgid "Tarifs"
+msgstr "Tarifs"
+
+msgid "À propos"
+msgstr "À propos"
+
+msgid "Commander"
+msgstr "Commander"
+
+msgid "Coursier indépendant à Bruxelles"
+msgstr "Coursier indépendant à Bruxelles"
+
+msgid "Disponible 7j/7 — Réponse rapide garantie"
+msgstr "Disponible 7j/7 — Réponse rapide garantie"
+
+msgid "Coursier à Bruxelles, disponible 7j/7"
+msgstr "Coursier à Bruxelles, disponible 7j/7"
+
+msgid "Livraisons rapides à Bruxelles"
+msgstr "Livraisons rapides à Bruxelles"
+
+msgid "Disponible maintenant"
+msgstr "Disponible maintenant"
+
+msgid "Bruxelles & environs"
+msgstr "Bruxelles & environs"
+
+msgid "Votre coursier"
+msgstr "Votre coursier"
+
+msgid "de confiance"
+msgstr "de confiance"
+
+msgid "à Bruxelles"
+msgstr "à Bruxelles"
+
+msgid "Livraisons rapides, prix honnêtes, contact direct. Que vous ayez besoin d'un colis livré, d'une course urgente ou d'un repas récupéré — je m'en occupe."
+msgstr "Livraisons rapides, prix honnêtes, contact direct. Que vous ayez besoin d'un colis livré, d'une course urgente ou d'un repas récupéré — je m'en occupe."
+
+msgid "Commander maintenant"
+msgstr "Commander maintenant"
+
+msgid "Qui suis-je ?"
+msgstr "Qui suis-je ?"
+
+msgid "Ce que je fais"
+msgstr "Ce que je fais"
+
+msgid "Mes services"
+msgstr "Mes services"
+
+msgid "Tout ce dont vous avez besoin, livré à votre porte ou à destination."
+msgstr "Tout ce dont vous avez besoin, livré à votre porte ou à destination."
+
+msgid "Course urgente"
+msgstr "Course urgente"
+
+msgid "Besoin express ? Je pars dans les minutes qui suivent votre demande."
+msgstr "Besoin express ? Je pars dans les minutes qui suivent votre demande."
+
+msgid "Récupération de repas"
+msgstr "Récupération de repas"
+
+msgid "Récupération au restaurant et livraison à votre adresse."
+msgstr "Récupération au restaurant et livraison à votre adresse."
+
+msgid "Colis & cadeaux"
+msgstr "Colis & cadeaux"
+
+msgid "Envoi ou réception de colis, documents, achats en ville."
+msgstr "Envoi ou réception de colis, documents, achats en ville."
+
+msgid "Courses alimentaires"
+msgstr "Courses alimentaires"
+
+msgid "Je fais vos courses et les ramène chez vous. Liste simple ou complexe."
+msgstr "Je fais vos courses et les ramène chez vous. Liste simple ou complexe."
+
+msgid "Petit déménagement"
+msgstr "Petit déménagement"
+
+msgid "Transport de petits meubles, cartons, objets encombrants en ville."
+msgstr "Transport de petits meubles, cartons, objets encombrants en ville."
+
+msgid "Mon histoire"
+msgstr "Mon histoire"
+
+msgid "Étudiant en informatique"
+msgstr "Étudiant en informatique"
+
+msgid "Je suis en <span class=\"about-highlight\">dernière année de bachelier en informatique</span> à Bruxelles. Comme beaucoup d'étudiants ici, je jongle entre les cours, les factures, et la vie qui ne s'arrête pas."
+msgstr "Je suis en <span class=\"about-highlight\">dernière année de bachelier en informatique</span> à Bruxelles. Comme beaucoup d'étudiants ici, je jongle entre les cours, les factures, et la vie qui ne s'arrête pas."
+
+msgid "Pendant un moment, je faisais des livraisons en tant que <span class=\"about-highlight\">coursier P2P via Uber Eats</span>. Dix à douze heures de vélo sous la pluie bruxelloise pour gagner 15&nbsp;€ dans la journée — sans garantie, sans protection, sans dignité. J'ai vite compris que ce système n'était pas fait pour moi."
+msgstr "Pendant un moment, je faisais des livraisons en tant que <span class=\"about-highlight\">coursier P2P via Uber Eats</span>. Dix à douze heures de vélo sous la pluie bruxelloise pour gagner 15&nbsp;€ dans la journée — sans garantie, sans protection, sans dignité. J'ai vite compris que ce système n'était pas fait pour moi."
+
+msgid "Alors j'ai décidé de <span class=\"about-highlight\">lancer ma propre activité</span>. Pas une grande boîte, juste moi, mon vélo, et l'envie de rendre vraiment service. Aux personnes âgées qui ont du mal à se déplacer, aux familles débordées, aux commerces qui ont besoin d'un coup de main."
+msgstr "Alors j'ai décidé de <span class=\"about-highlight\">lancer ma propre activité</span>. Pas une grande boîte, juste moi, mon vélo, et l'envie de rendre vraiment service. Aux personnes âgées qui ont du mal à se déplacer, aux familles débordées, aux commerces qui ont besoin d'un coup de main."
+
+msgid "Ici, vous avez mon numéro direct. Vous savez qui vous livre. Et moi, chaque course que vous me confiez m'aide concrètement à payer mes études et mes factures. <span class=\"about-highlight\">C'est gagnant-gagnant.</span>"
+msgstr "Ici, vous avez mon numéro direct. Vous savez qui vous livre. Et moi, chaque course que vous me confiez m'aide concrètement à payer mes études et mes factures. <span class=\"about-highlight\">C'est gagnant-gagnant.</span>"
+
+msgid "Transparence"
+msgstr "Transparence"
+
+msgid "Prix honnêtes, sans surprise. Toujours discutés avant la course."
+msgstr "Prix honnêtes, sans surprise. Toujours discutés avant la course."
+
+msgid "Course rapide"
+msgstr "Course rapide"
+
+msgid "à définir"
+msgstr "à définir"
+
+msgid "Livraison express dans Bruxelles < 5 km. Délai < 30 min."
+msgstr "Livraison express dans Bruxelles < 5 km. Délai < 30 min."
+
+msgid "Livraison standard"
+msgstr "Livraison standard"
+
+msgid "Colis, repas, documents. Toute la région bruxelloise."
+msgstr "Colis, repas, documents. Toute la région bruxelloise."
+
+msgid "Liste + déplacement + livraison inclus. Par heure ou forfait."
+msgstr "Liste + déplacement + livraison inclus. Par heure ou forfait."
+
+msgid "sur devis"
+msgstr "sur devis"
+
+msgid "Selon volume et distance. Devis gratuit en quelques minutes."
+msgstr "Selon volume et distance. Devis gratuit en quelques minutes."
+
+msgid "Pas de frais cachés. Vous me dites ce dont vous avez besoin, je vous donne un prix avant de partir."
+msgstr "Pas de frais cachés. Vous me dites ce dont vous avez besoin, je vous donne un prix avant de partir."
+
+msgid "Prêt à commander ?"
+msgstr "Prêt à commander ?"
+
+msgid "Remplissez le formulaire en 30 secondes. Je vous réponds personnellement dans les minutes qui suivent."
+msgstr "Remplissez le formulaire en 30 secondes. Je vous réponds personnellement dans les minutes qui suivent."
+
+msgid "Faire une demande"
+msgstr "Faire une demande"
+
+msgid "Étape 1 sur 1"
+msgstr "Étape 1 sur 1"
+
+msgid "Dites-moi ce dont vous avez besoin"
+msgstr "Dites-moi ce dont vous avez besoin"
+
+msgid "Formulaire rapide — 30 secondes. Je vous réponds directement dans le chat."
+msgstr "Formulaire rapide — 30 secondes. Je vous réponds directement dans le chat."
+
+msgid "Envoyer & ouvrir le chat"
+msgstr "Envoyer & ouvrir le chat"
+
+msgid "Aucun compte créé"
+msgstr "Aucun compte créé"
+
+msgid "Aucun email demandé"
+msgstr "Aucun email demandé"
+
+msgid "Contact direct"
+msgstr "Contact direct"
+
+msgid "Réponse en quelques minutes"
+msgstr "Réponse en quelques minutes"
+
+msgid "Prix convenu avant la course"
+msgstr "Prix convenu avant la course"
+
+msgid "Paiement à la livraison"
+msgstr "Paiement à la livraison"
+
+msgid "Chat avec le coursier"
+msgstr "Chat avec le coursier"
+
+msgid "Le coursier"
+msgstr "Le coursier"
+
+msgid "Vous"
+msgstr "Vous"
+
+msgid "En ligne"
+msgstr "En ligne"
+
+msgid "Déconnecté"
+msgstr "Déconnecté"
+
+msgid "Connexion..."
+msgstr "Connexion..."
+
+msgid "Connexion perdue — reconnexion en cours..."
+msgstr "Connexion perdue — reconnexion en cours..."
+
+msgid "Écrivez votre message…"
+msgstr "Écrivez votre message…"
+
+msgid "Envoyer"
+msgstr "Envoyer"
+
+msgid "Nouvelle demande"
+msgstr "Nouvelle demande"
+
+msgid "Client"
+msgstr "Client"
+
+msgid "Téléphone"
+msgstr "Téléphone"
+
+msgid "Service"
+msgstr "Service"
+
+msgid "Statut"
+msgstr "Statut"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Répondre"
+msgstr "Répondre"
+
+msgid "Retour au dashboard"
+msgstr "Retour au dashboard"
+
+msgid "Informations client"
+msgstr "Informations client"
+
+msgid "Gestion"
+msgstr "Gestion"
+
+msgid "Statut de la commande"
+msgstr "Statut de la commande"
+
+msgid "Notes privées (non visibles par le client)"
+msgstr "Notes privées (non visibles par le client)"
+
+msgid "Enregistrer"
+msgstr "Enregistrer"
+
+msgid "Service demandé"
+msgstr "Service demandé"
+
+msgid "Adresse"
+msgstr "Adresse"
+
+msgid "Demande reçue le"
+msgstr "Demande reçue le"
+
+msgid "Lien du client"
+msgstr "Lien du client"
+
+msgid "Voir le chat client"
+msgstr "Voir le chat client"
+
+msgid "Vous (admin)"
+msgstr "Vous (admin)"
+
+msgid "Accès non autorisé"
+msgstr "Accès non autorisé"
+
+msgid "Lien invalide"
+msgstr "Lien invalide"
+
+msgid "Ce chat n'est pas accessible depuis ce navigateur. Si vous avez déjà fait une demande, utilisez le même appareil et navigateur."
+msgstr "Ce chat n'est pas accessible depuis ce navigateur. Si vous avez déjà fait une demande, utilisez le même appareil et navigateur."
+
+msgid "Faire une nouvelle demande"
+msgstr "Faire une nouvelle demande"
+
+msgid "Nom complet"
+msgstr "Nom complet"
+
+msgid "Numéro de téléphone"
+msgstr "Numéro de téléphone"
+
+msgid "Adresse de prise en charge"
+msgstr "Adresse de prise en charge"
+
+msgid "Type de service"
+msgstr "Type de service"
+
+msgid "Votre nom complet"
+msgstr "Votre nom complet"
+
+msgid "+32 4XX XX XX XX"
+msgstr "+32 4XX XX XX XX"
+
+msgid "Rue, numéro, commune — Bruxelles"
+msgstr "Rue, numéro, commune — Bruxelles"
+
+msgid "Livraison de colis"
+msgstr "Livraison de colis"
+
+msgid "Demande de devis"
+msgstr "Demande de devis"
+
+msgid "En attente"
+msgstr "En attente"
+
+msgid "En cours"
+msgstr "En cours"
+
+msgid "Terminé"
+msgstr "Terminé"
+
+msgid "Annulé"
+msgstr "Annulé"

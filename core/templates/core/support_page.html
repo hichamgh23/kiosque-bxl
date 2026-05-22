@@ -1,0 +1,304 @@
+{% load i18n %}<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0e3057">
+<title>Chat — Le Kiosque BXL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+    --navy:      #0a2540;
+    --navy-mid:  #0e3057;
+    --navy-card: #0c2d52;
+    --navy-light:#174272;
+    --gold:      #f5a623;
+    --white:     #ffffff;
+    --muted:     #6b8aaa;
+    --body:      #b8cce0;
+    --success:   #34d399;
+    --radius:    18px;
+}
+html, body {
+    height: 100%; overflow: hidden;
+    font-family: 'Manrope', system-ui, sans-serif;
+    background: var(--navy); color: var(--body);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Wrapper : fixed plein écran ── */
+#chat {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--navy);
+}
+
+/* ── Header ── */
+#chat-head {
+    display: flex; align-items: center; gap: 0.85rem;
+    padding: env(safe-area-inset-top, 0) 1rem 0;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 0.75rem);
+    padding-bottom: 0.75rem;
+    background: var(--navy-mid);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    flex-shrink: 0;
+}
+#back-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--gold); font-size: 1.4rem; line-height: 1;
+    padding: 0.2rem 0.5rem 0.2rem 0;
+    display: flex; align-items: center;
+}
+#chat-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(245,166,35,0.12);
+    border: 1.5px solid rgba(245,166,35,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem; flex-shrink: 0;
+}
+#chat-info-name { font-weight: 700; color: var(--white); font-size: 0.9rem; }
+#chat-info-status {
+    font-size: 0.68rem; color: var(--success);
+    display: flex; align-items: center; gap: 0.3rem; margin-top: 0.1rem;
+}
+#chat-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+
+/* ── Messages ── */
+#chat-msgs {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding: 1rem 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+#chat-msgs::-webkit-scrollbar { display: none; }
+
+.msg { display: flex; flex-direction: column; max-width: 78%; }
+.msg.me   { align-self: flex-end;   align-items: flex-end; }
+.msg.them { align-self: flex-start; align-items: flex-start; }
+
+.bubble {
+    padding: 0.6rem 0.95rem;
+    font-size: 0.93rem; line-height: 1.5;
+    word-break: break-word; max-width: 100%;
+}
+.me   .bubble { background: var(--gold); color: var(--navy); font-weight: 600; border-radius: 18px 18px 4px 18px; }
+.them .bubble { background: var(--navy-card); color: var(--body); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px 18px 18px 4px; }
+
+.ts { font-size: 0.62rem; color: var(--muted); margin-top: 0.18rem; padding: 0 0.2rem; }
+
+.msg.me   + .msg.me   { margin-top: 0.1rem; }
+.msg.them + .msg.them { margin-top: 0.1rem; }
+.msg.me   + .msg.them,
+.msg.them + .msg.me   { margin-top: 0.75rem; }
+
+/* ── Barre prénom ── */
+#name-bar {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.55rem 1rem;
+    background: rgba(245,166,35,0.07);
+    border-top: 1px solid rgba(245,166,35,0.15);
+    flex-shrink: 0;
+}
+#name-bar label { font-size: 0.72rem; color: var(--gold); font-weight: 700; white-space: nowrap; }
+#name-input {
+    flex: 1; background: none; border: none; outline: none;
+    color: var(--white); font-family: 'Manrope', sans-serif; font-size: 16px;
+}
+#name-input::placeholder { color: var(--muted); }
+
+/* ── Barre saisie ── */
+#chat-bar {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    padding-bottom: max(0.6rem, env(safe-area-inset-bottom, 0px));
+    background: var(--navy-mid);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    flex-shrink: 0;
+}
+#msg-input {
+    flex: 1;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 22px;
+    color: var(--white);
+    padding: 0.65rem 1.1rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    outline: none;
+    min-height: 44px;
+    transition: border-color 0.2s;
+}
+#msg-input:focus { border-color: var(--gold); }
+#msg-input::placeholder { color: var(--muted); }
+#send-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--gold); color: var(--navy);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: transform 0.1s, background 0.15s;
+}
+#send-btn:active { transform: scale(0.88); background: #fbbf5c; }
+.tdot { width:7px; height:7px; border-radius:50%; background:#7a9ab8; animation:tdot 1.2s ease infinite; display:inline-block; }
+.tdot:nth-child(2){ animation-delay:.2s; }
+.tdot:nth-child(3){ animation-delay:.4s; }
+@keyframes tdot{ 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-6px);opacity:1} }
+</style>
+</head>
+<body>
+
+<div id="chat">
+
+    <div id="chat-head">
+        <button id="back-btn" onclick="history.back()">←</button>
+        <div id="chat-avatar">🛵</div>
+        <div>
+            <div id="chat-info-name">Le Kiosque BXL</div>
+            <div id="chat-info-status">
+                <span id="chat-status-dot"></span>En ligne
+            </div>
+        </div>
+    </div>
+
+    <div id="chat-msgs">
+        <div class="msg them">
+            <div class="bubble">Bonjour&nbsp;! 👋 Comment puis-je vous aider&nbsp;?</div>
+        </div>
+        {% for msg in messages %}
+        <div class="msg {% if msg.is_admin %}them{% else %}me{% endif %}" data-id="{{ msg.pk }}">
+            <div class="bubble">{{ msg.content }}</div>
+            <div class="ts">{{ msg.created_at|time:"H:i" }}</div>
+        </div>
+        {% endfor %}
+        <div id="typing-dots" style="display:none;padding:0.3rem 0;align-items:center;gap:5px">
+            <div class="tdot"></div><div class="tdot"></div><div class="tdot"></div>
+        </div>
+    </div>
+
+    {% if session.visitor_name == 'Visiteur' and not messages %}
+    <div id="name-bar">
+        <label>Prénom :</label>
+        <input id="name-input" type="text" placeholder="Votre prénom…"
+               maxlength="60" autocomplete="given-name" inputmode="text">
+    </div>
+    {% endif %}
+
+    <form id="chat-bar" onsubmit="sendMsg(event)">
+        {% csrf_token %}
+        <input id="msg-input" type="text" placeholder="Message…"
+               maxlength="500" autocomplete="off"
+               inputmode="text" enterkeyhint="send">
+        <button id="send-btn" type="submit">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            </svg>
+        </button>
+    </form>
+
+</div>
+
+<script>
+var SEND   = "{% url 'support_send' %}";
+var POLL   = "{% url 'support_poll' %}";
+var TYPING = "{% url 'support_typing' %}";
+var CSRF   = "{{ csrf_token }}";
+var chatEl   = document.getElementById('chat');
+var msgs     = document.getElementById('chat-msgs');
+var inp      = document.getElementById('msg-input');
+var nameBar  = document.getElementById('name-bar');
+var nameInp  = document.getElementById('name-input');
+var lastId   = 0;
+var visName  = '{{ session.visitor_name|escapejs }}';
+
+/* init lastId */
+msgs.querySelectorAll('[data-id]').forEach(function(el){
+    var id = parseInt(el.dataset.id)||0;
+    if(id>lastId) lastId=id;
+});
+
+function scrollEnd(){ msgs.scrollTop = msgs.scrollHeight; }
+scrollEnd();
+
+/* ── Clavier : pousse le chat vers le haut via visualViewport ── */
+if(window.visualViewport){
+    function onVP(){
+        var kb = Math.max(0, window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop);
+        chatEl.style.bottom = kb + 'px';
+        scrollEnd();
+    }
+    window.visualViewport.addEventListener('resize', onVP);
+    window.visualViewport.addEventListener('scroll', onVP);
+}
+
+function addBubble(content, isMe, time, id){
+    var row = document.createElement('div');
+    row.className = 'msg ' + (isMe ? 'me' : 'them');
+    if(id){ row.dataset.id = id; if(id>lastId) lastId=id; }
+    var b = document.createElement('div');
+    b.className = 'bubble';
+    b.appendChild(document.createTextNode(content));
+    var t = document.createElement('div');
+    t.className = 'ts'; t.textContent = time;
+    row.appendChild(b); row.appendChild(t);
+    msgs.appendChild(row);
+    scrollEnd();
+}
+
+function sendMsg(e){
+    e.preventDefault();
+    var txt = inp.value.trim();
+    if(!txt) return;
+    inp.value = '';
+
+    var name = visName;
+    if(nameBar && nameInp){
+        name = nameInp.value.trim() || 'Visiteur';
+        visName = name;
+        nameBar.style.display = 'none';
+    }
+
+    var now = new Date();
+    var hm  = ('0'+now.getHours()).slice(-2)+':'+('0'+now.getMinutes()).slice(-2);
+    addBubble(txt, true, hm, null);
+
+    var body = 'content='+encodeURIComponent(txt);
+    if(name && name!=='Visiteur') body += '&visitor_name='+encodeURIComponent(name);
+
+    fetch(SEND,{
+        method:'POST',
+        headers:{'X-CSRFToken':CSRF,'Content-Type':'application/x-www-form-urlencoded'},
+        body:body
+    }).then(function(r){return r.json();})
+      .then(function(d){ if(d.id && d.id>lastId) lastId=d.id; });
+}
+
+inp.addEventListener('input', function(){
+    fetch(TYPING, {method:'POST', headers:{'X-CSRFToken':CSRF,'Content-Type':'application/x-www-form-urlencoded'}});
+});
+
+var typingDots = document.getElementById('typing-dots');
+setInterval(function(){
+    fetch(POLL+'?since='+lastId)
+    .then(function(r){return r.json();})
+    .then(function(data){
+        data.messages.forEach(function(m){
+            if(m.is_admin) addBubble(m.content, false, m.time, m.id);
+        });
+        if(typingDots){
+            typingDots.style.display = data.typing ? 'flex' : 'none';
+            if(data.typing) scrollEnd();
+        }
+    }).catch(function(){});
+}, 1000);
+</script>
+</body>
+</html>

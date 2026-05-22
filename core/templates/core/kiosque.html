@@ -1,0 +1,331 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}Boutique — Le Kiosque BXL{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── Header + Tabs (compact) ── */
+.cat-tabs-wrap {
+    position: sticky; top: var(--nav-h); z-index: 100;
+    background: var(--navy);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.cat-tabs-wrap-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ── Tabs ── */
+.cat-tabs {
+    display: flex; gap: 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; flex: 1;
+}
+.cat-tabs::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+    display: flex; align-items: center; gap: 0.35rem;
+    background: none; border: none;
+    padding: 0.75rem 0.9rem;
+    cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    color: var(--text-muted);
+    font-family: 'Manrope', sans-serif; font-size: 0.82rem; font-weight: 600;
+    position: relative; transition: color 0.15s;
+}
+.tab-btn::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0.4rem; right: 0.4rem;
+    height: 2px; border-radius: 2px 2px 0 0;
+    background: var(--gold);
+    transform: scaleX(0); transition: transform 0.2s ease;
+}
+.tab-btn:hover { color: var(--white); }
+.tab-btn.active { color: var(--gold); }
+.tab-btn.active::after { transform: scaleX(1); }
+.tab-ico { font-size: 1rem; }
+
+/* ── Contenu ── */
+.shop-body { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 8rem; }
+
+.cat-section { display: none; }
+.cat-section.visible { display: block; animation: fadeIn 0.22s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+.cat-title {
+    font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--white);
+    margin-bottom: 1.4rem; display: flex; align-items: center; gap: 0.7rem;
+}
+.cat-title::after {
+    content:''; flex:1; height:1px; background:rgba(255,255,255,0.07);
+}
+
+/* ── Grille produits ── */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1.2rem;
+}
+
+/* ── Card ── */
+.product-card {
+    background: var(--navy-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius);
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.product-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(245,166,35,0.28);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+.product-img-wrap {
+    width: 100%; aspect-ratio: 1/1;
+    background: var(--navy-light);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+}
+.product-img-wrap img {
+    width:100%; height:100%; object-fit:cover; transition:transform 0.3s;
+}
+.product-card:hover .product-img-wrap img { transform: scale(1.06); }
+.product-emoji-ph {
+    font-size: 3.5rem;
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; height: 100%;
+}
+.out-badge {
+    position: absolute; top: 8px; left: 8px;
+    background: rgba(248,113,113,0.9); color: #fff;
+    font-size: 0.62rem; font-weight: 700; padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+}
+.featured-badge {
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(245,166,35,0.92); color: var(--navy);
+    font-size: 0.6rem; font-weight: 800; padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+}
+
+.product-body {
+    padding: 0.9rem 1rem;
+    display: flex; flex-direction: column; gap: 0.25rem; flex: 1;
+}
+.product-name { font-size: 0.9rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+.product-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.45; }
+.product-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: auto; padding-top: 0.75rem;
+}
+.product-price { font-size: 1.1rem; font-weight: 800; color: var(--gold); }
+.add-btn {
+    width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+    background: rgba(245,166,35,0.12); border: 1.5px solid rgba(245,166,35,0.3);
+    color: var(--gold); font-size: 1.25rem; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+}
+.add-btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.add-btn.added { background: var(--success); border-color: var(--success); color: var(--navy); font-size: 1rem; }
+.add-btn:disabled { opacity: 0.28; cursor: not-allowed; }
+
+/* ── Panier flottant ── */
+.float-cart {
+    position: fixed; bottom: 1.8rem; left: 50%; transform: translateX(-50%) translateY(20px);
+    z-index: 98; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    white-space: nowrap;
+}
+.float-cart.show { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+.float-cart a {
+    display: flex; align-items: center; gap: 0.7rem;
+    background: var(--gold); color: var(--navy);
+    border-radius: 999px; padding: 0.85rem 2rem;
+    font-weight: 800; font-size: 0.95rem; text-decoration: none;
+    box-shadow: 0 6px 28px rgba(245,166,35,0.45);
+}
+.float-cart a:hover { background: var(--gold-light); }
+
+/* ── Empty ── */
+.cat-empty {
+    grid-column: 1 / -1; text-align: center;
+    padding: 3rem 0; color: var(--text-muted); font-size: 0.88rem;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+    .cat-tabs-wrap-inner { padding: 0 1rem; }
+    .tab-btn { padding: 0.7rem 0.7rem; font-size: 0.78rem; }
+    .shop-body { padding: 1.2rem 1rem 7rem; }
+}
+@media (max-width: 540px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    .product-body { padding: 0.75rem 0.8rem; }
+    .product-name { font-size: 0.85rem; }
+    .product-price { font-size: 1rem; }
+    .product-emoji-ph { font-size: 2.8rem; }
+    .float-cart a { padding: 0.75rem 1.5rem; font-size: 0.88rem; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Tabs -->
+<div class="cat-tabs-wrap">
+    <div class="cat-tabs-wrap-inner">
+        <div class="cat-tabs" id="cat-tabs">
+            <button class="tab-btn active" data-target="cat-tous">
+                <span class="tab-ico">🛍️</span> {% trans "Tous les produits" %}
+            </button>
+            {% for cat in categories %}
+            <button class="tab-btn" data-target="cat-{{ cat.slug }}">
+                <span class="tab-ico">{{ cat.icon }}</span> {% trans cat.name %}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Produits -->
+<div class="shop-body">
+
+    <!-- Onglet Tous -->
+    <div class="cat-section visible" id="cat-tous">
+        {% for cat in categories %}
+        <div class="cat-title">{{ cat.icon }} {% trans cat.name %}</div>
+        <div class="products-grid" style="margin-bottom:2rem">
+            {% for product in cat.products.all %}
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+                    {% else %}
+                    <div class="product-emoji-ph">{{ product.emoji }}</div>
+                    {% endif %}
+                    {% if not product.in_stock %}
+                    <span class="out-badge">{% trans "Rupture" %}</span>
+                    {% endif %}
+                    {% if product.featured %}
+                    <span class="featured-badge">🔥 Top</span>
+                    {% endif %}
+                </div>
+                <div class="product-body">
+                    <div class="product-name">{{ product.name }}</div>
+                    {% if product.description %}
+                    <div class="product-desc">{{ product.description }}</div>
+                    {% endif %}
+                    <div class="product-footer">
+                        <span class="product-price">{{ product.price|floatformat:2 }}€</span>
+                        {% if product.in_stock %}
+                        <button class="add-btn" data-url="{% url 'add_to_cart' product.id %}" title="{% trans 'Ajouter' %}">+</button>
+                        {% else %}
+                        <button class="add-btn" disabled>✕</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="cat-empty">{% trans "Aucun produit pour l'instant." %}</p>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Onglets par catégorie -->
+    {% for cat in categories %}
+    <div class="cat-section" id="cat-{{ cat.slug }}">
+        <div class="cat-title">{{ cat.icon }} {% trans cat.name %}</div>
+        <div class="products-grid">
+            {% for product in cat.products.all %}
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+                    {% else %}
+                    <div class="product-emoji-ph">{{ product.emoji }}</div>
+                    {% endif %}
+                    {% if not product.in_stock %}
+                    <span class="out-badge">{% trans "Rupture" %}</span>
+                    {% endif %}
+                    {% if product.featured %}
+                    <span class="featured-badge">🔥 Top</span>
+                    {% endif %}
+                </div>
+                <div class="product-body">
+                    <div class="product-name">{{ product.name }}</div>
+                    {% if product.description %}
+                    <div class="product-desc">{{ product.description }}</div>
+                    {% endif %}
+                    <div class="product-footer">
+                        <span class="product-price">{{ product.price|floatformat:2 }}€</span>
+                        {% if product.in_stock %}
+                        <button class="add-btn" data-url="{% url 'add_to_cart' product.id %}" title="{% trans 'Ajouter' %}">+</button>
+                        {% else %}
+                        <button class="add-btn" disabled>✕</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="cat-empty">{% trans "Aucun produit pour l'instant." %}</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Panier flottant centré -->
+<div class="float-cart {% if cart_count %}show{% endif %}" id="float-cart">
+    <a href="{% url 'cart' %}">
+        🛒 {% trans "Mon panier" %} · <span id="float-count">{{ cart_count }}</span> {% trans "article" %}{% if cart_count != 1 %}s{% endif %}
+    </a>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+            document.querySelectorAll('.cat-section').forEach(function(s){ s.classList.remove('visible'); });
+            this.classList.add('active');
+            document.getElementById(this.dataset.target).classList.add('visible');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // Panier
+    var badge      = document.getElementById('cart-badge');
+    var floatCart  = document.getElementById('float-cart');
+    var floatCount = document.getElementById('float-count');
+
+    function getCookie(n) {
+        var v = document.cookie.match('(^|;) ?' + n + '=([^;]*)(;|$)');
+        return v ? v[2] : null;
+    }
+
+    document.querySelectorAll('.add-btn[data-url]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var self = this;
+            fetch(self.dataset.url, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getCookie('csrftoken'), 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(function (r) { return r.json(); })
+            .then(function (d) {
+                if (!d.success) return;
+                self.classList.add('added'); self.textContent = '✓';
+                setTimeout(function () { self.classList.remove('added'); self.textContent = '+'; }, 900);
+                if (badge) { badge.textContent = d.cart_count; badge.style.display = d.cart_count > 0 ? 'flex' : 'none'; }
+                if (floatCount) floatCount.textContent = d.cart_count;
+                if (floatCart && d.cart_count > 0) floatCart.classList.add('show');
+            });
+        });
+    });
+})();
+</script>
+{% endblock %}

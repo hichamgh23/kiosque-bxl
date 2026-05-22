@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion Admin — Le Kiosque BXL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+    --navy: #0d1b2a; --navy-mid: #112240; --navy-card: #152a45;
+    --gold: #f5a623; --gold-light: #fbbf24;
+    --white: #f0f4f8; --text-muted: #7a9ab8;
+    --danger: #f87171;
+}
+body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--navy);
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.5rem;
+}
+.login-box {
+    width: 100%; max-width: 380px;
+}
+.login-logo {
+    text-align: center; margin-bottom: 2.5rem;
+}
+.login-logo .ico { font-size: 2.8rem; display: block; margin-bottom: 0.6rem; }
+.login-logo h1 {
+    font-family: 'Fraunces', serif; font-size: 1.5rem; color: var(--white);
+    margin-bottom: 0.3rem;
+}
+.login-logo p { font-size: 0.8rem; color: var(--text-muted); }
+
+.login-card {
+    background: var(--navy-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 2rem;
+}
+.field { margin-bottom: 1.2rem; }
+.field label {
+    display: block; font-size: 0.75rem; font-weight: 700;
+    color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 0.8px; margin-bottom: 0.5rem;
+}
+.field input {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: var(--white);
+    padding: 0.75rem 1rem;
+    font-family: 'Manrope', sans-serif; font-size: 1rem;
+    outline: none; transition: border-color 0.2s;
+}
+.field input:focus { border-color: var(--gold); }
+.field input::placeholder { color: var(--text-muted); }
+
+.error-msg {
+    background: rgba(248,113,113,0.08);
+    border: 1px solid rgba(248,113,113,0.2);
+    border-radius: 8px; padding: 0.7rem 1rem;
+    color: var(--danger); font-size: 0.83rem;
+    margin-bottom: 1.2rem;
+}
+.login-btn {
+    width: 100%; padding: 0.85rem;
+    background: var(--gold); color: var(--navy);
+    border: none; border-radius: 10px;
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 0.95rem; cursor: pointer; transition: background 0.15s;
+}
+.login-btn:hover { background: var(--gold-light); }
+</style>
+</head>
+<body>
+<div class="login-box">
+    <div class="login-logo">
+        <span class="ico">🛵</span>
+        <h1>Le Kiosque BXL</h1>
+        <p>Espace administrateur</p>
+    </div>
+
+    <div class="login-card">
+        {% if error %}
+        <div class="error-msg">{{ error }}</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="field">
+                <label>Identifiant</label>
+                <input type="text" name="username" placeholder="admin" autocomplete="username" autofocus>
+            </div>
+            <div class="field">
+                <label>Mot de passe</label>
+                <input type="password" name="password" placeholder="••••••••" autocomplete="current-password">
+            </div>
+            <button type="submit" class="login-btn">Se connecter →</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

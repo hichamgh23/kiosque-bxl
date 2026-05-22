@@ -1,0 +1,358 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}Suivi #{{ order.tracking_number }} — Le Kiosque BXL{% endblock %}
+
+{% block extra_css %}
+<style>
+.track-wrap { max-width: 580px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+/* ── Header ── */
+.track-top { text-align: center; margin-bottom: 2.5rem; }
+.track-top h1 {
+    font-family: 'Fraunces', serif; font-size: 1.8rem;
+    color: var(--white); margin-bottom: 0.3rem;
+}
+.track-top p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem; }
+.track-num-badge {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    background: rgba(245,166,35,0.07);
+    border: 1.5px solid rgba(245,166,35,0.2);
+    border-radius: var(--radius); padding: 0.7rem 1.3rem;
+}
+.track-num-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; }
+.track-num-val { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); letter-spacing: 5px; }
+
+/* ── Annulée ── */
+.cancelled-box {
+    background: rgba(248,113,113,0.07);
+    border: 1px solid rgba(248,113,113,0.22);
+    border-radius: var(--radius); padding: 2rem;
+    text-align: center; margin-bottom: 2rem;
+}
+.cancelled-box h2 { font-family: 'Fraunces', serif; font-size: 1.3rem; color: var(--danger); margin: 0.6rem 0 0.4rem; }
+.cancelled-box p { font-size: 0.87rem; color: var(--text-muted); }
+
+/* ── Stepper horizontal ── */
+.stepper {
+    display: flex; align-items: flex-start;
+    margin-bottom: 1.5rem;
+    background: var(--navy-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius);
+    padding: 1.5rem 1rem;
+    gap: 0;
+}
+.step-row {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; text-align: center;
+    position: relative;
+}
+/* Ligne entre les étapes */
+.step-row:not(:last-child)::after {
+    content: '';
+    position: absolute; top: 20px; left: 50%; right: -50%;
+    height: 2px; background: rgba(255,255,255,0.08);
+    z-index: 0;
+}
+.step-row.done:not(:last-child)::after  { background: rgba(52,211,153,0.4); }
+.step-row.current:not(:last-child)::after { background: rgba(245,166,35,0.25); }
+
+.step-dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem; flex-shrink: 0;
+    background: var(--navy-light); border: 2px solid rgba(255,255,255,0.1);
+    position: relative; z-index: 1; margin-bottom: 0.6rem;
+    transition: all 0.3s;
+}
+.step-row.done    .step-dot { background: rgba(52,211,153,0.15); border-color: rgba(52,211,153,0.5); }
+.step-row.current .step-dot { background: rgba(245,166,35,0.1); border-color: var(--gold); animation: glow 2s ease infinite; }
+.step-row.pending .step-dot { opacity: 0.3; }
+@keyframes glow { 0%,100%{box-shadow:0 0 0 rgba(245,166,35,0)} 50%{box-shadow:0 0 14px rgba(245,166,35,0.5)} }
+
+.step-info { padding: 0 0.3rem; }
+.step-title { font-size: 0.78rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+.step-row.pending .step-title { color: var(--text-muted); }
+.step-badge {
+    display: inline-block; margin-top: 0.3rem;
+    font-size: 0.58rem; font-weight: 800; color: var(--navy);
+    background: var(--gold); border-radius: 99px;
+    padding: 0.12rem 0.5rem; text-transform: uppercase; letter-spacing: 0.3px;
+}
+.step-check { color: var(--success); font-size: 0.75rem; margin-top: 0.25rem; display: block; }
+
+/* ── Résumé ── */
+.order-block {
+    background: var(--navy-card); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius); overflow: hidden; margin-bottom: 1.2rem;
+}
+.block-head {
+    padding: 0.85rem 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.07);
+    font-family: 'Fraunces', serif; font-size: 0.9rem; color: var(--white);
+    display: flex; justify-content: space-between; align-items: center;
+}
+.block-head .total { color: var(--gold); font-size: 0.95rem; }
+.block-body { padding: 0.6rem 1.2rem; }
+.s-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.84rem; padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--text-body);
+}
+.s-row:last-of-type { border: none; }
+.s-row .qty { color: var(--text-muted); margin-right: 0.3rem; }
+.s-row .amt { font-weight: 600; color: var(--white); }
+.block-footer {
+    padding: 0.7rem 1.2rem; border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-muted);
+}
+
+/* ── Chat ── */
+.chat-card { background: var(--navy-card); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius); overflow: hidden; }
+.chat-head { display: flex; align-items: center; gap: 0.9rem; padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.chat-av { width: 38px; height: 38px; border-radius: 50%; background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.chat-av-name { font-weight: 700; color: var(--white); font-size: 0.88rem; }
+.chat-av-sub  { font-size: 0.7rem; color: var(--text-muted); }
+.chat-msgs { padding: 1rem; height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.65rem; scroll-behavior: smooth; }
+.chat-msgs::-webkit-scrollbar { width: 3px; }
+.chat-msgs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+.cmsg { display: flex; flex-direction: column; max-width: 80%; }
+.cmsg.adm { align-self: flex-start; }
+.cmsg.cli { align-self: flex-end; }
+.cbub { padding: 0.55rem 0.85rem; border-radius: 14px; font-size: 0.87rem; line-height: 1.45; word-break: break-word; }
+.adm .cbub { background: var(--navy-light); color: var(--text-body); border-bottom-left-radius: 4px; }
+.cli .cbub { background: var(--gold); color: var(--navy); font-weight: 600; border-bottom-right-radius: 4px; }
+.ctime { font-size: 0.62rem; color: var(--text-muted); margin-top: 0.18rem; }
+.chat-bar { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid rgba(255,255,255,0.07); }
+.chat-inp {
+    flex: 1; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 22px; color: var(--white); padding: 0.6rem 1rem;
+    font-family: 'Manrope', sans-serif; font-size: 16px; outline: none;
+    transition: border-color 0.2s;
+}
+.chat-inp:focus { border-color: var(--gold); }
+.chat-inp::placeholder { color: var(--text-muted); }
+.chat-snd {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--gold); color: var(--navy); border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0; transition: background 0.15s;
+}
+.chat-snd:active { background: var(--gold-light); }
+
+.typing-wrap { padding: 0 1rem 0.3rem; display:none; }
+.typing-wrap.show { display:flex; align-items:center; gap:5px; }
+.typing-dot {
+    width:7px; height:7px; border-radius:50%;
+    background:var(--text-muted);
+    animation: tdot 1.2s ease infinite;
+}
+.typing-dot:nth-child(2){ animation-delay:.2s; }
+.typing-dot:nth-child(3){ animation-delay:.4s; }
+@keyframes tdot{ 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-6px);opacity:1} }
+
+
+@media (max-width: 600px) {
+    .track-wrap { padding: 1.8rem 1rem 4rem; }
+    .stepper { padding: 1.2rem 0.6rem; overflow-x: auto; flex-wrap: nowrap; }
+    .step-row { min-width: 70px; }
+    .step-dot { width: 30px; height: 30px; font-size: 0.85rem; }
+    .step-title { font-size: 0.68rem; }
+    .step-badge { font-size: 0.5rem; padding: 0.1rem 0.38rem; }
+    .step-check { font-size: 0.65rem; }
+    .step-row:not(:last-child)::after { top: 15px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="track-wrap">
+
+    <!-- Header -->
+    <div class="track-top">
+        <h1>{% trans "Suivi de commande" %}</h1>
+        <p>{% trans "Bonjour" %} <strong style="color:var(--white)">{{ order.client_name }}</strong> !</p>
+        <div class="track-num-badge">
+            <div>
+                <div class="track-num-label">{% trans "N° de suivi" %}</div>
+                <div class="track-num-val">{{ order.tracking_number }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Annulée -->
+    {% if is_cancelled %}
+    <div class="cancelled-box">
+        <div style="font-size:2.2rem">❌</div>
+        <h2>{% trans "Commande annulée" %}</h2>
+        <p>{% trans "Cette commande a été annulée. Écrivez-moi si vous pensez qu'il s'agit d'une erreur." %}</p>
+    </div>
+    {% else %}
+
+    <!-- Stepper -->
+    <div class="stepper">
+        {% for status_key, label, icon, desc in steps %}{% with forloop.counter0 as i %}
+        <div class="step-row {% if i < current_index %}done{% elif i == current_index %}current{% else %}pending{% endif %}">
+            <div class="step-dot">{{ icon }}</div>
+            <div class="step-info">
+                <div class="step-title">{{ label }}</div>
+                <div class="step-desc">{{ desc }}</div>
+            </div>
+            {% if i < current_index %}<span class="step-check">✓</span>{% endif %}
+            {% if i == current_index %}<span class="step-badge">{% trans "En cours" %}</span>{% endif %}
+        </div>
+        {% endwith %}{% endfor %}
+    </div>
+
+    {% endif %}
+
+    <!-- Résumé -->
+    <div class="order-block">
+        <div class="block-head">
+            <span>{% trans "Commande" %}</span>
+            <span class="total">{{ order.total|floatformat:2 }}€ + 4.99€</span>
+        </div>
+        <div class="block-body">
+            {% for item in order.items.all %}
+            <div class="s-row">
+                <span><span class="qty">{{ item.quantity }}×</span> {{ item.product_name }}</span>
+                <span class="amt">{{ item.subtotal|floatformat:2 }}€</span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="block-footer">
+            <span>📍 {{ order.address }}</span>
+            <span>💵 {% trans "Paiement à la livraison" %}</span>
+            <span>{{ order.created_at|date:"d/m/Y H:i" }}</span>
+        </div>
+    </div>
+
+
+    <!-- Chat -->
+    <div class="chat-card">
+        <div class="chat-head">
+            <div class="chat-av">🛵</div>
+            <div>
+                <div class="chat-av-name">Le Kiosque BXL</div>
+                <div class="chat-av-sub">{% trans "Question, ajout… écrivez ici" %}</div>
+            </div>
+        </div>
+        <div class="chat-msgs" id="chat-msgs">
+
+            {% for msg in messages %}
+            <div class="cmsg {% if msg.is_admin %}adm{% else %}cli{% endif %}" data-id="{{ msg.pk }}">
+                <div class="cbub">{{ msg.content }}</div>
+                <div class="ctime">{{ msg.created_at|time:"H:i" }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="typing-wrap" id="typing-wrap">
+            <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        </div>
+        <form class="chat-bar" id="chat-form">
+            {% csrf_token %}
+            <input type="text" id="chat-inp" class="chat-inp" placeholder="{% trans 'Votre message…' %}"
+                   maxlength="500" autocomplete="off" inputmode="text" enterkeyhint="send">
+            <button type="submit" class="chat-snd">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+(function () {
+    var SEND   = "{% url 'send_message' order.pk %}";
+    var GET    = "{% url 'get_messages' order.pk %}";
+    var TYPING = "{% url 'set_typing' order.pk %}";
+    var CSRF   = "{{ csrf_token }}";
+
+    var box          = document.getElementById('chat-msgs');
+    var form         = document.getElementById('chat-form');
+    var inp          = document.getElementById('chat-inp');
+    var typingWrap   = document.getElementById('typing-wrap');
+    var lastId       = 0;
+    var pending      = new Set();
+    var typingTimer  = null;
+
+    box.querySelectorAll('[data-id]').forEach(function(el){
+        var id = parseInt(el.dataset.id)||0;
+        if(id > lastId) lastId = id;
+    });
+
+    function scrollEnd() { box.scrollTop = box.scrollHeight; }
+    scrollEnd();
+
+    function addMsg(id, content, isAdmin, time) {
+        if(id && id <= lastId) return;
+        /* message déjà affiché en optimiste → juste màj lastId, pas de doublon */
+        if(id && !isAdmin && pending.has(content)) {
+            pending.delete(content);
+            if(id > lastId) lastId = id;
+            return;
+        }
+        var row = document.createElement('div');
+        row.className = 'cmsg ' + (isAdmin ? 'adm' : 'cli');
+        if(id) row.dataset.id = id;
+        var b = document.createElement('div'); b.className = 'cbub';
+        b.appendChild(document.createTextNode(content));
+        var t = document.createElement('div'); t.className = 'ctime'; t.textContent = time;
+        row.appendChild(b); row.appendChild(t);
+        box.appendChild(row); scrollEnd();
+        if(id && id > lastId) lastId = id;
+    }
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var msg = inp.value.trim(); if(!msg) return;
+        var now = new Date();
+        var hm = ('0'+now.getHours()).slice(-2)+':'+('0'+now.getMinutes()).slice(-2);
+        inp.value = '';
+        pending.add(msg);
+        addMsg(null, msg, false, hm); /* affichage immédiat */
+        fetch(SEND, {
+            method: 'POST',
+            headers: {'X-CSRFToken': CSRF, 'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'content=' + encodeURIComponent(msg)
+        }).then(function(r){return r.json();}).then(function(d){
+            pending.delete(d.content || msg);
+            if(d.id && d.id > lastId) lastId = d.id;
+        }).catch(function(){ pending.delete(msg); });
+    });
+
+    /* Signale que le client est en train d'écrire */
+    inp.addEventListener('input', function(){
+        clearTimeout(typingTimer);
+        fetch(TYPING, {method:'POST', headers:{'X-CSRFToken':CSRF,'Content-Type':'application/x-www-form-urlencoded'}});
+        typingTimer = setTimeout(function(){}, 3000);
+    });
+
+    setInterval(function(){
+        fetch(GET + '?since=' + lastId)
+        .then(function(r){return r.json();})
+        .then(function(data){
+            data.messages.forEach(function(m){ addMsg(m.id, m.content, m.is_admin, m.time); });
+            if(typingWrap){
+                if(data.typing){ typingWrap.classList.add('show'); scrollEnd(); }
+                else { typingWrap.classList.remove('show'); }
+            }
+        })
+        .catch(function(){});
+    }, 1000);
+
+    {% if not is_cancelled and current_index < 4 %}
+    var STATUS_URL = "{% url 'order_status_json' order.pk %}";
+    var currentStatus = "{{ order.status }}";
+    setInterval(function(){
+        fetch(STATUS_URL)
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+            if(d.status !== currentStatus) { location.reload(); }
+        }).catch(function(){});
+    }, 5000);
+    {% endif %}
+})();
+</script>
+{% endblock %}

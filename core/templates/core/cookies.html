@@ -1,0 +1,86 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}{% get_current_language as LANG %}{% if LANG == 'en' %}Cookie Policy{% elif LANG == 'nl' %}Cookiebeleid{% else %}Politique cookies{% endif %} — Le Kiosque BXL{% endblock %}
+
+{% block extra_css %}
+<style>
+.legal-wrap { max-width: 640px; margin: 0 auto; padding: 3.5rem 1.5rem 6rem; }
+.legal-wrap h1 { font-family:'Fraunces',serif; font-size:1.9rem; color:var(--white); margin-bottom:0.4rem; }
+.legal-wrap .sub { color:var(--text-muted); font-size:0.85rem; margin-bottom:2.5rem; }
+.bloc { background:var(--navy-card); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius); padding:1.3rem 1.5rem; margin-bottom:1rem; }
+.bloc h2 { font-size:0.88rem; font-weight:700; color:var(--white); margin-bottom:0.6rem; }
+.bloc p, .bloc li { font-size:0.87rem; color:var(--text-body); line-height:1.7; }
+.bloc ul { padding-left:1.1rem; }
+.bloc ul li { list-style:disc; margin-bottom:0.25rem; }
+a.lien { color:var(--gold); text-decoration:none; }
+.ctable { width:100%; border-collapse:collapse; margin-top:0.5rem; }
+.ctable th { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.7px; color:var(--text-muted); padding:0.5rem 0.7rem; border-bottom:1px solid rgba(255,255,255,0.07); text-align:left; }
+.ctable td { font-size:0.82rem; color:var(--text-body); padding:0.6rem 0.7rem; border-bottom:1px solid rgba(255,255,255,0.05); vertical-align:top; }
+.ctable tr:last-child td { border:none; }
+code { color:var(--gold); font-size:0.78rem; }
+.tag-ok { background:rgba(52,211,153,0.12); color:var(--success); font-size:0.65rem; font-weight:700; padding:0.12rem 0.45rem; border-radius:99px; }
+@media(max-width:600px){ .legal-wrap{ padding:2rem 1rem 4rem; } .ctable{ font-size:0.76rem; } }
+</style>
+{% endblock %}
+
+{% block content %}
+{% get_current_language as LANG %}
+<div class="legal-wrap">
+
+{% if LANG == 'en' %}
+    <h1>🍪 Cookie Policy</h1>
+    <p class="sub">May 2025</p>
+    <div class="bloc">
+        <h2>What we use</h2>
+        <table class="ctable">
+            <thead><tr><th>Cookie</th><th>Purpose</th><th>Duration</th><th>Type</th></tr></thead>
+            <tbody>
+                <tr><td><code>sessionid</code></td><td>Remembers your cart and session</td><td>2 weeks</td><td><span class="tag-ok">Required</span></td></tr>
+                <tr><td><code>csrftoken</code></td><td>Protects forms against CSRF attacks</td><td>1 year</td><td><span class="tag-ok">Required</span></td></tr>
+                <tr><td><code>django_language</code></td><td>Remembers your chosen language</td><td>1 year</td><td><span class="tag-ok">Required</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="bloc"><h2>What we don't use</h2><ul><li>No Google Analytics or tracking tools</li><li>No advertising pixels (Facebook, Google…)</li><li>No third-party marketing cookies</li></ul></div>
+    <div class="bloc"><h2>Managing cookies</h2><p>You can disable cookies in your browser settings. Note that the cart and language selector may not work properly without them.</p></div>
+    <div class="bloc"><h2>Questions?</h2><p><a href="{% url 'support_page' %}" class="lien">Contact us →</a> &nbsp;·&nbsp; <a href="{% url 'privacy' %}" class="lien">Privacy policy →</a></p></div>
+
+{% elif LANG == 'nl' %}
+    <h1>🍪 Cookiebeleid</h1>
+    <p class="sub">Mei 2025</p>
+    <div class="bloc">
+        <h2>Wat we gebruiken</h2>
+        <table class="ctable">
+            <thead><tr><th>Cookie</th><th>Doel</th><th>Duur</th><th>Type</th></tr></thead>
+            <tbody>
+                <tr><td><code>sessionid</code></td><td>Onthoudt uw winkelwagen en sessie</td><td>2 weken</td><td><span class="tag-ok">Vereist</span></td></tr>
+                <tr><td><code>csrftoken</code></td><td>Beschermt formulieren tegen CSRF-aanvallen</td><td>1 jaar</td><td><span class="tag-ok">Vereist</span></td></tr>
+                <tr><td><code>django_language</code></td><td>Onthoudt uw gekozen taal</td><td>1 jaar</td><td><span class="tag-ok">Vereist</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="bloc"><h2>Wat we niet gebruiken</h2><ul><li>Geen Google Analytics of trackingtools</li><li>Geen advertentiepixels (Facebook, Google…)</li><li>Geen marketing cookies van derden</li></ul></div>
+    <div class="bloc"><h2>Cookies beheren</h2><p>U kunt cookies uitschakelen in uw browserinstellingen. Let op: de winkelwagen en taalkeuze werken dan mogelijk niet correct.</p></div>
+    <div class="bloc"><h2>Vragen?</h2><p><a href="{% url 'support_page' %}" class="lien">Contacteer ons →</a> &nbsp;·&nbsp; <a href="{% url 'privacy' %}" class="lien">Privacybeleid →</a></p></div>
+
+{% else %}
+    <h1>🍪 Politique cookies</h1>
+    <p class="sub">Mai 2025</p>
+    <div class="bloc">
+        <h2>Ce qu'on utilise</h2>
+        <table class="ctable">
+            <thead><tr><th>Cookie</th><th>Rôle</th><th>Durée</th><th>Type</th></tr></thead>
+            <tbody>
+                <tr><td><code>sessionid</code></td><td>Mémorise votre panier et session</td><td>2 semaines</td><td><span class="tag-ok">Nécessaire</span></td></tr>
+                <tr><td><code>csrftoken</code></td><td>Protège les formulaires contre les attaques CSRF</td><td>1 an</td><td><span class="tag-ok">Nécessaire</span></td></tr>
+                <tr><td><code>django_language</code></td><td>Mémorise la langue choisie</td><td>1 an</td><td><span class="tag-ok">Nécessaire</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="bloc"><h2>Ce qu'on n'utilise pas</h2><ul><li>Pas de Google Analytics ni de traceurs</li><li>Pas de pixels publicitaires (Facebook, Google…)</li><li>Pas de cookies marketing tiers</li></ul></div>
+    <div class="bloc"><h2>Gérer les cookies</h2><p>Vous pouvez désactiver les cookies dans les paramètres de votre navigateur. Attention : le panier et le sélecteur de langue pourraient ne plus fonctionner.</p></div>
+    <div class="bloc"><h2>Questions ?</h2><p><a href="{% url 'support_page' %}" class="lien">Nous contacter →</a> &nbsp;·&nbsp; <a href="{% url 'privacy' %}" class="lien">Politique de confidentialité →</a></p></div>
+{% endif %}
+
+</div>
+{% endblock %}

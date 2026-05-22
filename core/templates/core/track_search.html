@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}Suivre ma commande — Le Kiosque BXL{% endblock %}
+
+{% block extra_css %}
+<style>
+    .search-page { max-width: 500px; margin: 0 auto; padding: 5rem 1.5rem 5rem; text-align: center; }
+
+    .search-page h1 {
+        font-family: 'Fraunces', serif; font-size: 2rem;
+        color: var(--white); margin-bottom: 0.5rem;
+    }
+    .search-page .sub {
+        color: var(--text-muted); font-size: 0.92rem;
+        line-height: 1.6; margin-bottom: 2.5rem;
+    }
+
+    .search-form {
+        display: flex; gap: 0.6rem; margin-bottom: 1rem;
+    }
+    .search-input {
+        flex: 1; background: rgba(255,255,255,0.06);
+        border: 1.5px solid rgba(255,255,255,0.12);
+        border-radius: var(--radius-sm); color: var(--white);
+        padding: 0.9rem 1rem; font-family: 'Manrope', sans-serif;
+        font-size: 1.1rem; font-weight: 600; letter-spacing: 3px;
+        text-align: center; outline: none;
+        transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--gold); background: rgba(245,166,35,0.04); }
+    .search-input::placeholder { letter-spacing: 1px; font-weight: 400; font-size: 0.9rem; color: var(--text-muted); }
+    .search-btn {
+        padding: 0.9rem 1.4rem; border-radius: var(--radius-sm);
+        font-size: 0.95rem; flex-shrink: 0;
+    }
+
+    .search-hint { font-size: 0.75rem; color: var(--text-muted); }
+
+    .search-error {
+        background: rgba(248,113,113,0.08);
+        border: 1px solid rgba(248,113,113,0.2);
+        border-radius: var(--radius); padding: 1rem 1.4rem;
+        color: var(--danger); font-size: 0.88rem; margin-top: 1.5rem;
+    }
+
+    @media (max-width: 500px) {
+        .search-form { flex-direction: column; }
+        .search-btn { width: 100%; justify-content: center; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="search-page">
+    <h1>📦 {% trans "Suivi de commande" %}</h1>
+    <p class="sub">
+        {% trans "Entrez le numéro à 6 chiffres reçu sur votre page de confirmation." %}
+    </p>
+
+    <form method="get" action="{% url 'track_search' %}" class="search-form">
+        <input
+            type="text" name="q" class="search-input"
+            placeholder="{% trans 'ex : 847362' %}"
+            value="{{ query }}"
+            maxlength="6" inputmode="numeric" pattern="[0-9]*"
+            autofocus autocomplete="off"
+        >
+        <button type="submit" class="btn btn-gold search-btn">{% trans "Suivre" %} →</button>
+    </form>
+
+    <p class="search-hint">{% trans "Le numéro se trouve sur votre page de confirmation de commande." %}</p>
+
+    {% if error %}
+    <div class="search-error">{{ error }}</div>
+    {% endif %}
+</div>
+{% endblock %}

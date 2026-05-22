@@ -1,0 +1,56 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}{% get_current_language as LANG %}{% if LANG == 'en' %}Privacy Policy{% elif LANG == 'nl' %}Privacybeleid{% else %}Confidentialité{% endif %} — Le Kiosque BXL{% endblock %}
+
+{% block extra_css %}
+<style>
+.legal-wrap { max-width: 640px; margin: 0 auto; padding: 3.5rem 1.5rem 6rem; }
+.legal-wrap h1 { font-family:'Fraunces',serif; font-size:1.9rem; color:var(--white); margin-bottom:0.4rem; }
+.legal-wrap .sub { color:var(--text-muted); font-size:0.85rem; margin-bottom:2.5rem; }
+.bloc { background:var(--navy-card); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius); padding:1.3rem 1.5rem; margin-bottom:1rem; }
+.bloc h2 { font-size:0.88rem; font-weight:700; color:var(--white); margin-bottom:0.5rem; }
+.bloc p, .bloc li { font-size:0.87rem; color:var(--text-body); line-height:1.7; }
+.bloc ul { padding-left:1.1rem; }
+.bloc ul li { list-style:disc; }
+a.lien { color:var(--gold); text-decoration:none; }
+@media(max-width:600px){ .legal-wrap{ padding:2rem 1rem 4rem; } }
+</style>
+{% endblock %}
+
+{% block content %}
+{% get_current_language as LANG %}
+<div class="legal-wrap">
+
+{% if LANG == 'en' %}
+    <h1>🔒 Privacy Policy</h1>
+    <p class="sub">Simple and honest — May 2025</p>
+    <div class="bloc"><h2>📋 What we collect</h2><p>Only what's needed to deliver your order: first name, phone number and address. That's it.</p></div>
+    <div class="bloc"><h2>🎯 Why</h2><p>To process your order, deliver it and contact you if needed. Nothing else.</p></div>
+    <div class="bloc"><h2>🤝 Sharing</h2><p>Your data is never sold or shared with third parties. It stays with us, full stop.</p></div>
+    <div class="bloc"><h2>🗑️ Retention</h2><p>Your data is deleted after 12 months.</p></div>
+    <div class="bloc"><h2>✅ Your rights</h2><p>Access, correction or deletion of your data: <a href="{% url 'support_page' %}" class="lien">contact us</a> and we'll handle it.</p></div>
+    <div class="bloc"><h2>🍪 Cookies</h2><p>Only technical cookies (cart, security, language). <a href="{% url 'cookies' %}" class="lien">See our cookie policy →</a></p></div>
+
+{% elif LANG == 'nl' %}
+    <h1>🔒 Privacybeleid</h1>
+    <p class="sub">Eenvoudig en eerlijk — mei 2025</p>
+    <div class="bloc"><h2>📋 Wat we verzamelen</h2><p>Alleen wat nodig is om uw bestelling te leveren: voornaam, telefoonnummer en adres. Meer niet.</p></div>
+    <div class="bloc"><h2>🎯 Waarom</h2><p>Om uw bestelling te verwerken, te leveren en u indien nodig te contacteren. Niets anders.</p></div>
+    <div class="bloc"><h2>🤝 Delen</h2><p>Uw gegevens worden nooit verkocht of gedeeld met derden. Ze blijven bij ons, punt.</p></div>
+    <div class="bloc"><h2>🗑️ Bewaring</h2><p>Uw gegevens worden na 12 maanden verwijderd.</p></div>
+    <div class="bloc"><h2>✅ Uw rechten</h2><p>Toegang, correctie of verwijdering van uw gegevens: <a href="{% url 'support_page' %}" class="lien">contacteer ons</a> en we regelen het.</p></div>
+    <div class="bloc"><h2>🍪 Cookies</h2><p>Alleen technische cookies (winkelwagen, beveiliging, taal). <a href="{% url 'cookies' %}" class="lien">Zie ons cookiebeleid →</a></p></div>
+
+{% else %}
+    <h1>🔒 Confidentialité</h1>
+    <p class="sub">Simple et honnête — mai 2025</p>
+    <div class="bloc"><h2>📋 Ce qu'on collecte</h2><p>Uniquement ce qui est nécessaire pour livrer votre commande : prénom, téléphone et adresse. C'est tout.</p></div>
+    <div class="bloc"><h2>🎯 Pourquoi</h2><p>Pour traiter votre commande, vous livrer et vous contacter si besoin. Rien d'autre.</p></div>
+    <div class="bloc"><h2>🤝 Partage</h2><p>Vos données ne sont jamais vendues ni transmises à des tiers. Elles restent chez nous, point.</p></div>
+    <div class="bloc"><h2>🗑️ Conservation</h2><p>Vos données sont supprimées au bout de 12 mois.</p></div>
+    <div class="bloc"><h2>✅ Vos droits</h2><p>Accès, correction ou suppression de vos données : <a href="{% url 'support_page' %}" class="lien">écrivez-nous</a> et on s'en occupe.</p></div>
+    <div class="bloc"><h2>🍪 Cookies</h2><p>Uniquement des cookies techniques (panier, sécurité, langue). <a href="{% url 'cookies' %}" class="lien">Voir la politique cookies →</a></p></div>
+{% endif %}
+
+</div>
+{% endblock %}
