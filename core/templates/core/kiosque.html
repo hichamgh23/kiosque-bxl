@@ -193,6 +193,7 @@
     <!-- Onglet Tous -->
     <div class="cat-section visible" id="cat-tous">
         {% for cat in categories %}
+        <div class="tous-cat-block" data-slug="{{ cat.slug }}">
         <div class="cat-title">{% trans cat.name %}</div>
         <div class="products-grid" style="margin-bottom:2rem">
             {% for product in cat.products.all %}
@@ -228,6 +229,7 @@
             {% empty %}
             <p class="cat-empty">{% trans "Aucun produit pour l'instant." %}</p>
             {% endfor %}
+        </div>
         </div>
         {% endfor %}
     </div>
@@ -287,7 +289,7 @@
 {% block extra_js %}
 <script>
 (function () {
-    // Tabs
+    // Tabs — clic
     document.querySelectorAll('.tab-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
             document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
@@ -297,6 +299,31 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
+
+    // IntersectionObserver — change l'onglet actif au scroll dans "Tous"
+    if('IntersectionObserver' in window){
+        var observer = new IntersectionObserver(function(entries){
+            // On est dans "Tous les produits" seulement
+            var tousActive = document.getElementById('cat-tous').classList.contains('visible');
+            if(!tousActive) return;
+            entries.forEach(function(entry){
+                if(entry.isIntersecting){
+                    var slug = entry.target.dataset.slug;
+                    var matchBtn = document.querySelector('.tab-btn[data-target="cat-' + slug + '"]');
+                    if(matchBtn){
+                        document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+                        matchBtn.classList.add('active');
+                        // Scroll le tab vers le centre
+                        matchBtn.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+                    }
+                }
+            });
+        }, { threshold: 0.25 });
+
+        document.querySelectorAll('.tous-cat-block').forEach(function(block){
+            observer.observe(block);
+        });
+    }
 
     // Panier
     var badge      = document.getElementById('cart-badge');
