@@ -450,6 +450,33 @@ msgstr "Meer info"
 msgid "Hors ligne"
 msgstr "Offline"
 
+msgid "Suivez votre commande en direct"
+msgstr "Volg uw bestelling in realtime"
+
+msgid "Dès que vous commandez, vous recevez un numéro de suivi à 6 chiffres. Entrez-le sur la page de suivi pour voir en temps réel où en est votre livraison :"
+msgstr "Zodra u bestelt, ontvangt u een 6-cijferig trackingnummer. Voer het in op de trackingpagina om in realtime te zien waar uw levering is:"
+
+msgid "Commande reçue"
+msgstr "Bestelling ontvangen"
+
+msgid "Contactez-moi directement"
+msgstr "Contacteer mij direct"
+
+msgid "Une question avant de commander ? Vous voulez ajouter quelque chose à votre commande en cours ? Écrivez-moi directement via le chat — je réponds rapidement."
+msgstr "Een vraag voor het bestellen? Wilt u iets toevoegen aan uw huidige bestelling? Schrijf mij direct via de chat — ik antwoord snel."
+
+msgid "Chat en direct"
+msgstr "Live chat"
+
+msgid "Via la bulle en bas à droite de chaque page"
+msgstr "Via de bubbel rechtsonder op elke pagina"
+
+msgid "Chat de commande"
+msgstr "Bestelchat"
+
+msgid "Sur votre page de suivi avec votre numéro"
+msgstr "Op uw trackingpagina met uw nummer"
+
 msgid "J'accepte"
 msgstr "Ik accepteer"
 

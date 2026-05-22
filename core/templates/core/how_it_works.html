@@ -263,43 +263,43 @@
 
         <div class="extra-card">
             <div class="extra-icon">📦</div>
-            <h3>Suivez votre commande en direct</h3>
-            <p>Dès que vous commandez, vous recevez un <strong style="color:var(--gold)">numéro de suivi à 6 chiffres</strong>. Entrez-le sur la page de suivi pour voir en temps réel où en est votre livraison :</p>
+            <h3>{% trans "Suivez votre commande en direct" %}</h3>
+            <p>{% trans "Dès que vous commandez, vous recevez un numéro de suivi à 6 chiffres. Entrez-le sur la page de suivi pour voir en temps réel où en est votre livraison :" %}</p>
             <div class="track-steps">
-                <div class="ts"><span class="ts-dot" style="background:rgba(245,166,35,0.3);color:var(--gold)">⏳</span><span>Commande reçue</span></div>
+                <div class="ts"><span class="ts-dot" style="background:rgba(245,166,35,0.3);color:var(--gold)">⏳</span><span>{% trans "Commande reçue" %}</span></div>
                 <div class="ts-arrow">→</div>
-                <div class="ts"><span class="ts-dot" style="background:rgba(96,165,250,0.2);color:#60a5fa">✅</span><span>Confirmée</span></div>
+                <div class="ts"><span class="ts-dot" style="background:rgba(96,165,250,0.2);color:#60a5fa">✅</span><span>{% trans "Confirmée" %}</span></div>
                 <div class="ts-arrow">→</div>
-                <div class="ts"><span class="ts-dot" style="background:rgba(167,139,250,0.2);color:#a78bfa">🛵</span><span>En livraison</span></div>
+                <div class="ts"><span class="ts-dot" style="background:rgba(167,139,250,0.2);color:#a78bfa">🛵</span><span>{% trans "En livraison" %}</span></div>
                 <div class="ts-arrow">→</div>
-                <div class="ts"><span class="ts-dot" style="background:rgba(52,211,153,0.15);color:#34d399">🔔</span><span>Devant chez vous</span></div>
+                <div class="ts"><span class="ts-dot" style="background:rgba(52,211,153,0.15);color:#34d399">🔔</span><span>{% trans "Devant chez vous" %}</span></div>
                 <div class="ts-arrow">→</div>
-                <div class="ts"><span class="ts-dot" style="background:rgba(52,211,153,0.2);color:var(--success)">🏠</span><span>Livrée</span></div>
+                <div class="ts"><span class="ts-dot" style="background:rgba(52,211,153,0.2);color:var(--success)">🏠</span><span>{% trans "Livrée" %}</span></div>
             </div>
-            <a href="{% url 'track_search' %}" class="btn btn-ghost" style="margin-top:1.2rem;width:100%;justify-content:center">📦 Suivre ma commande →</a>
+            <a href="{% url 'track_search' %}" class="btn btn-ghost" style="margin-top:1.2rem;width:100%;justify-content:center">📦 {% trans "Suivre ma commande" %} →</a>
         </div>
 
         <div class="extra-card">
             <div class="extra-icon">💬</div>
-            <h3>Contactez-moi directement</h3>
-            <p>Une question avant de commander ? Vous voulez ajouter quelque chose à votre commande en cours ? Écrivez-moi directement via le chat — je réponds rapidement.</p>
+            <h3>{% trans "Contactez-moi directement" %}</h3>
+            <p>{% trans "Une question avant de commander ? Vous voulez ajouter quelque chose à votre commande en cours ? Écrivez-moi directement via le chat — je réponds rapidement." %}</p>
             <div class="contact-ways">
                 <div class="cw">
                     <span class="cw-ico">💬</span>
                     <div>
-                        <strong>Chat en direct</strong>
-                        <span>Via la bulle en bas à droite de chaque page</span>
+                        <strong>{% trans "Chat en direct" %}</strong>
+                        <span>{% trans "Via la bulle en bas à droite de chaque page" %}</span>
                     </div>
                 </div>
                 <div class="cw">
                     <span class="cw-ico">📦</span>
                     <div>
-                        <strong>Chat de commande</strong>
-                        <span>Sur votre page de suivi avec votre numéro</span>
+                        <strong>{% trans "Chat de commande" %}</strong>
+                        <span>{% trans "Sur votre page de suivi avec votre numéro" %}</span>
                     </div>
                 </div>
             </div>
-            <a href="{% url 'support_page' %}" class="btn btn-gold" style="margin-top:1.2rem;width:100%;justify-content:center">💬 Nous contacter →</a>
+            <a href="{% url 'support_page' %}" class="btn btn-gold" style="margin-top:1.2rem;width:100%;justify-content:center">💬 {% trans "Nous contacter" %} →</a>
         </div>
 
     </div>

@@ -448,6 +448,33 @@ msgstr "Learn more"
 msgid "Hors ligne"
 msgstr "Offline"
 
+msgid "Suivez votre commande en direct"
+msgstr "Track your order in real time"
+
+msgid "Dès que vous commandez, vous recevez un numéro de suivi à 6 chiffres. Entrez-le sur la page de suivi pour voir en temps réel où en est votre livraison :"
+msgstr "As soon as you order, you receive a 6-digit tracking number. Enter it on the tracking page to see in real time where your delivery is:"
+
+msgid "Commande reçue"
+msgstr "Order received"
+
+msgid "Contactez-moi directement"
+msgstr "Contact me directly"
+
+msgid "Une question avant de commander ? Vous voulez ajouter quelque chose à votre commande en cours ? Écrivez-moi directement via le chat — je réponds rapidement."
+msgstr "A question before ordering? Want to add something to your current order? Write to me directly via chat — I respond quickly."
+
+msgid "Chat en direct"
+msgstr "Live chat"
+
+msgid "Via la bulle en bas à droite de chaque page"
+msgstr "Via the bubble at the bottom right of each page"
+
+msgid "Chat de commande"
+msgstr "Order chat"
+
+msgid "Sur votre page de suivi avec votre numéro"
+msgstr "On your tracking page with your number"
+
 msgid "J'accepte"
 msgstr "I accept"
 
