@@ -431,7 +431,7 @@ if (document.documentElement.classList.contains('show-loader')) {
                     {% if product.image %}
                     <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
                     {% else %}
-                    <div class="product-emoji-ph">{{ product.emoji }}</div>
+                    <div class="product-emoji-ph"></div>
                     {% endif %}
                 </div>
                 <div class="product-body">
