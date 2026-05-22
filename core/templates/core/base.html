@@ -842,11 +842,10 @@ function acceptCookies(){
             <div class="support-avatar">🛵</div>
             <div class="support-header-text">
                 <div class="support-header-name">Le Kiosque BXL</div>
-                {% if site_is_open %}
-                <div class="support-header-sub" style="color:#34d399">● {% trans "En ligne · Répond rapidement" %}</div>
-                {% else %}
-                <div class="support-header-sub" style="color:#f87171">● {% trans "Hors ligne" %}</div>
-                {% endif %}
+                <div class="support-header-sub" id="support-status-txt"
+                    style="color:{% if site_is_open %}#34d399{% else %}#f87171{% endif %}">
+                    ● {% if site_is_open %}{% trans "En ligne · Répond rapidement" %}{% else %}{% trans "Hors ligne" %}{% endif %}
+                </div>
             </div>
             <button class="support-close-btn" id="support-close">✕</button>
         </div>
@@ -1018,6 +1017,8 @@ function acceptCookies(){
         });
     }
 
+    var statusTxt = document.getElementById('support-status-txt');
+
     /* ── poll for admin replies ── */
     setInterval(function () {
         fetch(POLL_URL + '?since=' + lastId)
@@ -1031,6 +1032,15 @@ function acceptCookies(){
                     badge.style.display = 'block';
                 }
             });
+            if (statusTxt && typeof data.is_open !== 'undefined') {
+                if (data.is_open) {
+                    statusTxt.style.color = '#34d399';
+                    statusTxt.textContent = '● En ligne · Répond rapidement';
+                } else {
+                    statusTxt.style.color = '#f87171';
+                    statusTxt.textContent = '● Hors ligne';
+                }
+            }
         })
         .catch(function () {});
     }, 1000);

@@ -420,8 +420,9 @@ def support_poll(request):
         since = int(request.GET.get('since', 0))
     except (ValueError, TypeError):
         since = 0
-    msgs   = session.support_messages.filter(pk__gt=since).values('pk', 'content', 'is_admin', 'created_at')
-    typing = bool(cache.get(f'typing_support_{session.pk}_admin'))
+    msgs    = session.support_messages.filter(pk__gt=since).values('pk', 'content', 'is_admin', 'created_at')
+    typing  = bool(cache.get(f'typing_support_{session.pk}_admin'))
+    is_open = SiteSettings.get().is_open
     session.support_messages.filter(is_admin=True, is_read=False).update(is_read=True)
     return JsonResponse({
         'messages': [
@@ -429,7 +430,8 @@ def support_poll(request):
              'time': m['created_at'].strftime('%H:%M')}
             for m in msgs
         ],
-        'typing': typing,
+        'typing':   typing,
+        'is_open':  is_open,
     })
 
 
