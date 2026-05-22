@@ -345,7 +345,7 @@ def dashboard(request):
         'current_filter': status_filter,
         'counts':         counts,
         'pending_count':  counts.get('en_attente', 0),
-        'settings':       SiteSettings.get(),
+        'kiosk':          SiteSettings.get(),
     })
 
 

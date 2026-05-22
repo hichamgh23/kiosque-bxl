@@ -40,7 +40,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
     <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap">
         <form method="post" action="{% url 'toggle_open' %}">
             {% csrf_token %}
-            {% if settings.is_open %}
+            {% if kiosk.is_open %}
             <button type="submit" class="btn btn-sm" style="background:rgba(248,113,113,0.15);color:var(--danger);border:1px solid rgba(248,113,113,0.3)">
                 🔴 Fermer le kiosque
             </button>
@@ -50,7 +50,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             </button>
             {% endif %}
         </form>
-        <span style="font-size:0.78rem;color:var(--text-muted)">{{ settings.opening_hours }}</span>
+        <span style="font-size:0.78rem;color:var(--text-muted)">{{ kiosk.opening_hours }}</span>
         <a href="{% url 'admin:core_product_add' %}" class="btn btn-gold btn-sm">+ Produit</a>
     </div>
 </div>
